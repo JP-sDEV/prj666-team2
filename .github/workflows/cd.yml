@@ -1,0 +1,16 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        # Note: this will pass by default, remove this once the pipeline is built
+        continue-on-error: true
