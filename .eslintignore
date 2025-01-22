@@ -1,0 +1,2 @@
+# Ignore API files for client linting
+src/app/api
