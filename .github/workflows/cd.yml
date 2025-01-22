@@ -8,6 +8,7 @@ on:
     workflows: ["CI Backend", "CI Frontend"]
     types:
       - completed # Trigger when the CI workflows are completed
+  workflow_dispatch:
 
 jobs:
   check-ci-status:

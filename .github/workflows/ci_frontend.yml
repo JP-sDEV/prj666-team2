@@ -8,6 +8,8 @@ on:
     paths:
       - "src/app/pages/**" # Trigger only when client files are changed
       - "!src/app/pages/api/**" # Exclude API changes
+  workflow_dispatch:
+
 jobs:
   lint:
     name: Lint Client Files
