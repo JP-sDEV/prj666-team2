@@ -1,19 +1,36 @@
-name: CI FRONTEND
+name: CI Frontend
 
 on:
   pull_request:
     branches:
       - main
   push:
-    branches:
-      - main
-
+    paths:
+      - "src/app/pages/**" # Trigger only when client files are changed
+      - "!src/app/pages/api/**" # Exclude API changes
 jobs:
   lint:
-    name: ESLint
+    name: Lint Client Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
-        # Note: this will pass by default, remove this once the pipeline is built
-        continue-on-error: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "lts"
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint client
+        run: npm run lint:client
