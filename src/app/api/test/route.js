@@ -1,5 +1,5 @@
-"use server";
+'use server';
 
 export async function GET() {
-  return Response.json({ message: "Hello World" });
+  return Response.json({ message: 'Hello World' });
 }
