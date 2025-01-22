@@ -10,7 +10,8 @@
     "lint:api": "next lint --dir src/app/api",
     "lint:client": "next lint --dir src/app --ignore-path .eslintignore",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "coverage": "jest -c jest.config.js --runInBand --coverage"
   },
   "dependencies": {
     "next": "^15.1.5",
