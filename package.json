@@ -9,9 +9,11 @@
     "lint": "next lint",
     "lint:api": "next lint --dir src/app/api",
     "lint:client": "next lint --dir src/app --ignore-path .eslintignore",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "coverage": "jest -c jest.config.js --runInBand --coverage"
+    "coverage": "jest -c jest.config.js --runInBand --coverage",
+    "test:backend": "jest --selectProjects api --coverage",
+    "test:frontend": "jest --selectProjects client --coverage"
   },
   "dependencies": {
     "next": "^15.1.5",
@@ -23,6 +25,7 @@
     "@next/eslint-plugin-next": "^15.1.6",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "babel-jest": "^29.7.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
     "eslint-plugin-prettier": "^5.2.3",
