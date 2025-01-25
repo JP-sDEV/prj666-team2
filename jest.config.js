@@ -27,12 +27,18 @@ const config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }]
+  },
   // Add this configuration for different test environments
   projects: [
     {
       displayName: 'api',
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/app/api/**/*.test.js'],
+      transform: {
+        '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }]
+      }
     },
     {
       displayName: 'client',
