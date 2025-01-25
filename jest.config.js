@@ -26,7 +26,20 @@ const config = {
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
-  }
+  },
+  // Add this configuration for different test environments
+  projects: [
+    {
+      displayName: 'api',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/src/app/api/**/*.test.js'],
+    },
+    {
+      displayName: 'client',
+      testEnvironment: 'jsdom',
+      testMatch: ['<rootDir>/src/app/**/*.test.jsx'],
+    },
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

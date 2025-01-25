@@ -9,11 +9,11 @@
     "lint": "next lint",
     "lint:api": "next lint --dir src/app/api",
     "lint:client": "next lint --dir src/app --ignore-path .eslintignore",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
-    "test:backend": "jest src/app/api --coverage",
-    "test:backend:watch": "jest src/app/api --watch"
+    "test:backend": "jest --selectProjects api --coverage",
+    "test:frontend": "jest --selectProjects client --coverage"
   },
   "dependencies": {
     "next": "^15.1.5",
