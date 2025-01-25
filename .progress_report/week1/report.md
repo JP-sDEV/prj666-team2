@@ -28,13 +28,13 @@ Each stack in the project will have a dedicated CI pipeline to ensure code quali
 **Tests:**
 
 - [ ]  Unit ([Jest](https://jestjs.io/))
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 - [ ]  Integration ([Jest](https://jestjs.io/))
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 - [ ]  Unit ([React Testing Library](https://testing-library.com/docs/react-testing-library/intro/))
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 - [ ]  E2E, end to end, ([Cypress](https://www.cypress.io/))
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 
 **Integration Check (git):**
 
@@ -54,11 +54,11 @@ Each stack in the project will have a dedicated CI pipeline to ensure code quali
 **Tests:**
 
 - [ ]  Unit (Jest)
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 - [ ]  Integration ([Supertest](https://www.npmjs.com/package/supertest))
-    - Ensure 80 amount of code coverage
+    - Ensure 80 amount code coverage
 - [ ]  Unit (React Testing Library)
-    - Ensure 80 amount of code coverage
+    - Ensure 80% code coverage
 
 **Integration Check (git):**
 
@@ -72,14 +72,14 @@ Each stack in the project will have a dedicated CI pipeline to ensure code quali
 
 **Static code analysis:**
 
-- [ ]  Linting ([flake8](https://flake8.pycqa.org/))
+- [x]  Linting ([flake8](https://flake8.pycqa.org/))
 
 Tests:
 
-- [ ]  Unit ([Pytest](https://pytest.org/))
-- Ensure X amount of coverage
+- [x]  Unit ([Pytest](https://pytest.org/))
+- Ensure 80% of coverage
 - [ ]  Integration (Pytest)
-    - Ensure X amount of coverage
+    - Ensure X% of coverage
 
 ---
 
@@ -89,5 +89,5 @@ The CD pipeline automates deployment to Vercel, the hosting platform, where the 
 
 ### CD processes:
 
-- [ ]  check if both frontend and backend processes passed:
+- [x]  check if both frontend and backend processes passed:
     - [ ]  push to [Vercel](https://vercel.com/)
