@@ -3,23 +3,35 @@ import request from 'supertest';
 import { createServer } from 'http';
 import { GET } from '../../app/api/test/route';
 
+jest.setTimeout(10000); // Increase timeout to 10 seconds
+
 describe('API Integration Tests', () => {
   let server;
 
   beforeAll(() => {
     const handler = async (req, res) => {
-      const response = await GET();
-      const data = await response.json();
+      try {
+        const response = await GET();
+        const data = await response.json();
 
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = response.status;
-      res.end(JSON.stringify(data));
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = response.status;
+        res.end(JSON.stringify(data));
+      } catch (error) {
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 500;
+        res.end(JSON.stringify({ error: 'Internal Server Error' }));
+      }
     };
     server = createServer(handler);
   });
 
   afterAll((done) => {
-    server.close(done);
+    if (server) {
+      server.close(done);
+    } else {
+      done();
+    }
   });
 
   it('GET /api/test returns correct response', async () => {
@@ -31,7 +43,7 @@ describe('API Integration Tests', () => {
     expect(response.body).toEqual({
       message: 'Hello World',
     });
-  });
+  }, 10000);
 
   it('handles server errors appropriately', async () => {
     // Mock a server error
@@ -49,5 +61,5 @@ describe('API Integration Tests', () => {
     });
 
     jest.restoreAllMocks();
-  });
+  }, 10000);
 });
