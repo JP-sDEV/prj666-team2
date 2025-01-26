@@ -19,22 +19,22 @@ describe('Test API Route', () => {
     });
   });
 
-  // Example of error handling test (you'll need to implement error handling in route.js first)
   describe('Error Handling', () => {
     it('should handle internal server errors gracefully', async () => {
-      // Mock implementation to simulate error
-      jest.spyOn(global, 'Response').mockImplementationOnce(() => {
+      // Mock Response.json to throw an error
+      const originalJson = Response.json;
+      Response.json = jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal Server Error');
       });
 
-      try {
-        await GET();
-      } catch (error) {
-        expect(error.message).toBe('Internal Server Error');
-      }
+      const response = await GET();
+      const data = await response.json();
 
-      // Restore the original implementation
-      jest.restoreAllMocks();
+      expect(response.status).toBe(500);
+      expect(data).toEqual({ error: 'Internal Server Error' });
+
+      // Restore original implementation
+      Response.json = originalJson;
     });
   });
 });
