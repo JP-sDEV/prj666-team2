@@ -6,8 +6,8 @@ on:
       - main
   push:
     paths:
-      - "src/app/pages/**" # Trigger only when client files are changed
-      - "!src/app/pages/api/**" # Exclude API changes
+      - 'src/app/pages/**' # Trigger only when client files are changed
+      - '!src/app/pages/api/**' # Exclude API changes
   workflow_dispatch:
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: '20.x'
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
@@ -35,3 +35,28 @@ jobs:
 
       - name: Lint client
         run: npm run lint:client
+
+  test:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run integration tests
+        run: npm run test:integration

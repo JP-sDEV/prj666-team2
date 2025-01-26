@@ -13,7 +13,8 @@
     "test:watch": "jest --watch",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
     "test:backend": "jest --selectProjects api --coverage",
-    "test:frontend": "jest --selectProjects client --coverage"
+    "test:frontend": "jest --selectProjects client --coverage",
+    "test:integration": "jest --selectProjects integration --coverage"
   },
   "dependencies": {
     "next": "^15.1.5",
@@ -36,6 +37,7 @@
     "postcss": "^8",
     "prettier": "3.4.2",
     "supertest": "^6.3.4",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "jest-environment-node": "^29.7.0"
   }
 }
