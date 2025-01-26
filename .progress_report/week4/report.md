@@ -29,9 +29,9 @@ Each stack in the project will have a dedicated CI pipeline to ensure code quali
 
 - [x]  Unit ([Jest](https://jestjs.io/))
     - Ensure 80% code coverage
-- [ ]  Integration ([Jest](https://jestjs.io/))
+- [x]  Integration ([Jest](https://jestjs.io/))
     - Ensure 80% code coverage
-- [ ]  Unit ([React Testing Library](https://testing-library.com/docs/react-testing-library/intro/))
+- [x]  Unit ([React Testing Library](https://testing-library.com/docs/react-testing-library/intro/))
     - Ensure 80% code coverage
 - [ ]  E2E, end to end, ([Cypress](https://www.cypress.io/))
     - Ensure 80% code coverage
@@ -55,7 +55,7 @@ Each stack in the project will have a dedicated CI pipeline to ensure code quali
 
 - [x]  Unit (Jest)
     - Ensure 80% code coverage
-- [ ]  Integration ([Supertest](https://www.npmjs.com/package/supertest))
+- [x]  Integration ([Supertest](https://www.npmjs.com/package/supertest))
     - Ensure 80 amount code coverage
 - [ ]  Unit (React Testing Library)
     - Ensure 80% code coverage
