@@ -49,7 +49,7 @@ const config = {
       displayName: 'integration',
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/tests/integration/**/*.test.js'],
-      setupFiles: ['<rootDir>/src/tests/integration/setup.js'],
+      setupFilesAfterEnv: ['<rootDir>/src/tests/integration/setup.js'],
     },
   ],
 };
