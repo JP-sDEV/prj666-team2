@@ -8,7 +8,7 @@ jest.setTimeout(10000); // Increase timeout to 10 seconds
 describe('API Integration Tests', () => {
   let server;
 
-  beforeAll(() => {
+  beforeAll((done) => {
     const handler = async (req, res) => {
       try {
         const response = await GET();
@@ -24,14 +24,11 @@ describe('API Integration Tests', () => {
       }
     };
     server = createServer(handler);
+    server.listen(0, () => done());
   });
 
   afterAll((done) => {
-    if (server) {
-      server.close(done);
-    } else {
-      done();
-    }
+    server.close(done);
   });
 
   it('GET /api/test returns correct response', async () => {
@@ -46,9 +43,9 @@ describe('API Integration Tests', () => {
   }, 10000);
 
   it('handles server errors appropriately', async () => {
-    // Mock a server error
+    const mockError = new Error('Internal Server Error');
     jest.spyOn(Response, 'json').mockImplementationOnce(() => {
-      throw new Error('Internal Server Error');
+      throw mockError;
     });
 
     const response = await request(server)
