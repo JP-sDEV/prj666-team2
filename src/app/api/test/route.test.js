@@ -22,19 +22,20 @@ describe('Test API Route', () => {
   describe('Error Handling', () => {
     it('should handle internal server errors gracefully', async () => {
       // Mock Response.json to throw an error
-      const originalJson = Response.json;
-      Response.json = jest.fn().mockImplementationOnce(() => {
-        throw new Error('Internal Server Error');
+      const mockError = new Error('Internal Server Error');
+      jest.spyOn(Response, 'json').mockImplementationOnce(() => {
+        throw mockError;
       });
 
       const response = await GET();
-      const data = await response.json();
 
       expect(response.status).toBe(500);
+
+      const data = await response.json();
       expect(data).toEqual({ error: 'Internal Server Error' });
 
-      // Restore original implementation
-      Response.json = originalJson;
+      // Clean up
+      jest.restoreAllMocks();
     });
   });
 });
