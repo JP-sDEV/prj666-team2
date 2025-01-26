@@ -17,18 +17,18 @@ const config = {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: 80
-    }
+      statements: 80,
+    },
   },
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'clover', 'html'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }]
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   // Add this configuration for different test environments
   projects: [
@@ -37,13 +37,19 @@ const config = {
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/app/api/**/*.test.js'],
       transform: {
-        '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }]
-      }
+        '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }],
+      },
     },
     {
       displayName: 'client',
       testEnvironment: 'jsdom',
       testMatch: ['<rootDir>/src/app/**/*.test.jsx'],
+    },
+    {
+      displayName: 'integration',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/src/tests/integration/**/*.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/src/tests/integration/setup.js'],
     },
   ],
 };
