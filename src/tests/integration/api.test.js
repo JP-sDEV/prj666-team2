@@ -4,11 +4,18 @@ import { apiResolver } from 'next/dist/server/api-utils/node';
 import { GET } from '../../app/api/test/route';
 
 describe('API Integration Tests', () => {
-  const handler = (req, res) => {
-    return apiResolver(req, res, undefined, GET, undefined, false);
-  };
+  let server;
 
-  const server = createServer(handler);
+  beforeAll(() => {
+    const handler = (req, res) => {
+      return apiResolver(req, res, undefined, GET, undefined, false);
+    };
+    server = createServer(handler);
+  });
+
+  afterAll((done) => {
+    server.close(done);
+  });
 
   it('GET /api/test returns correct response', async () => {
     const response = await request(server)
