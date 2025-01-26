@@ -1,15 +1,19 @@
 import { jest, describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import request from 'supertest';
 import { createServer } from 'http';
-import { apiResolver } from 'next/dist/server/api-utils/node';
 import { GET } from '../../app/api/test/route';
 
 describe('API Integration Tests', () => {
   let server;
 
   beforeAll(() => {
-    const handler = (req, res) => {
-      return apiResolver(req, res, undefined, GET, undefined, false);
+    const handler = async (req, res) => {
+      const response = await GET();
+      const data = await response.json();
+
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = response.status;
+      res.end(JSON.stringify(data));
     };
     server = createServer(handler);
   });
