@@ -1,4 +1,4 @@
-import { jest, beforeAll, afterEach, afterAll } from '@jest/globals';
+import { beforeAll, afterEach, afterAll } from '@jest/globals';
 import { server } from '../mocks/server';
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
