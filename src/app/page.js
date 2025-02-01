@@ -1,10 +1,6 @@
 import Link from 'next/link';
+import { Layout } from "@/components/craft";
 
 export default function Page() {
-  return (
-    <div>
-      <h1>Home</h1>
-      <Link href="/about">About</Link>
-    </div>
-  );
+  return <Layout>{/* Your page content */}</Layout>;
 }
