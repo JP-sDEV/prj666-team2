@@ -8,12 +8,16 @@ import { ArrowRight } from "lucide-react";
 
 // Local component imports
 import { Section, Container } from "@/components/craft";
-import { Button } from "shadcn-ui";
+import { Button } from "../ui/button";
 
 // Asset imports
-import Placeholder from "@/public/placeholder.jpg";
+import Placeholder from "../../../public/placeholder.webp";
+import React from "react";
 
+  
 const Hero = () => {
+
+      
   return (
     <Section>
       <Container>
@@ -23,21 +27,22 @@ const Hero = () => {
             className="mb-6 w-fit"
             size={"sm"}
             variant={"outline"}
-          >
+          > 
             <Link className="not-prose" href="https://9d8.dev">
               Lorem ipsum dolor sit amet <ArrowRight className="w-4" />
             </Link>
-          </Button>
+   
+           </Button>   
           <h1>
             <Balancer>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              DataSense
             </Balancer>
           </h1>
           <h3 className="text-muted-foreground">
             <Balancer>
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+               Unlock the power of real-time sensor data with DataSense. 
+               Streamline your operations, optimize resources, 
+               and gain actionable insights with our intuitive dashboard and advanced analytics
             </Balancer>
           </h3>
           <div className="not-prose my-8 h-96 w-full overflow-hidden rounded-lg border md:h-[480px] md:rounded-xl">

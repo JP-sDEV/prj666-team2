@@ -1,6 +1,14 @@
-import Link from 'next/link';
-import { Layout } from "@/components/craft";
+import Hero from "@/components/home-page/hero"
+import { Container, Main, Section } from "@/components/craft";
 
 export default function Page() {
-  return <Layout>{/* Your page content */}</Layout>;
+  return (
+    <Main>
+      <Section>
+        <Container>
+          <Hero/>
+        </Container>
+      </Section>
+    </Main>
+  );
 }
