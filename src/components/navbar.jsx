@@ -1,5 +1,5 @@
 "use client"
-import { cn } from "@/lib/utils"
+import { cn } from "../../public/placeholder-logo-unsplash.jpg"
 import { BookOpen, MenuIcon } from 'lucide-react'
 import Link from "next/link"
 import * as React from "react"
@@ -15,14 +15,14 @@ export function NavBar() {
 
     return (
         <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
-            <div className="flex justify-between md:w-[720px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
+            <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
                 <Dialog>
                     <SheetTrigger className="min-[825px]:hidden p-2 transition">
                         <MenuIcon />
                     </SheetTrigger>
                     <SheetContent side="left">
                         <SheetHeader>
-                            <SheetTitle>fabrika.</SheetTitle>
+                            <SheetTitle>fabrika!!.</SheetTitle>
                             <SheetDescription>
                                 Scale and launch products with expert developers, on-demand, at a flat monthly fee
                             </SheetDescription>
@@ -57,25 +57,31 @@ export function NavBar() {
                         </div>
                     </SheetContent>
                 </Dialog>
+
                 <NavigationMenu>
                     <NavigationMenuList className="max-[825px]:hidden ">
                         <Link href="/" className="pl-2">
-                            <h1 className="font-bold">fabrika.</h1>
+                            <h1 className="font-bold">
+                                <img src="/placeholder-logo-unsplash.jpg" alt="Logo" className="h-8" />
+                            </h1>
                         </Link>
                     </NavigationMenuList>
                 </NavigationMenu>
-                <div className="flex items-center gap-2 max-[825px]:hidden">
-                    <Link href="/software">
-                        <Button variant="ghost">Software</Button>
+                <div className="flex items-center gap-3 max-[825px]:hidden">
+                    <Link href="/home">
+                        <Button variant="ghost">Home</Button>
                     </Link>
-                    <Link href="/automation">
-                        <Button variant="ghost">Automation</Button>
+                    <Link href="/aboutus">
+                        <Button variant="ghost">About Us</Button>
                     </Link>
-                    <Link href="/blog">
-                        <Button variant="ghost">Blog</Button>
+                    <Link href="/faq">
+                        <Button variant="ghost">FAQ</Button>
                     </Link>
-                    <Link href="/projects">
-                        <Button variant="ghost">Projects</Button>
+                    <Link href="/account">
+                        <Button variant="ghost" className="ml-60">Create an Account</Button>
+                    </Link>
+                    <Link href="/login">
+                        <Button variant="ghost">Login</Button>
                     </Link>
                      <ModeToggle />
                 </div>

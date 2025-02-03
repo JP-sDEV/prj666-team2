@@ -11,7 +11,7 @@ import { Section, Container } from "@/components/craft";
 import { Button } from "../ui/button";
 
 // Asset imports
-import Placeholder from "../../../public/jorge-ramirez-unsplash.jpg";
+import Placeholder from "../../../public/main-unsplash.jpg";
 import React from "react";
 
   
@@ -31,13 +31,14 @@ const Hero = () => {
             <Link className="not-prose" href="https://9d8.dev">
               Lorem ipsum dolor sit amet <ArrowRight className="w-4" />
             </Link>
-   
-           </Button>   
-          <h1>
-            <Balancer>
-              DataSense
-            </Balancer>
-          </h1>
+           </Button>  
+
+            <div className="text-[65px] font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg font-rajdhani">
+              <Balancer>
+                DataSense
+              </Balancer>
+            </div>
+
           <h3 className="text-muted-foreground">
             <Balancer>
                Unlock the power of real-time sensor data with DataSense. 

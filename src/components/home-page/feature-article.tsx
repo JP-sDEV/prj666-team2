@@ -9,6 +9,7 @@ import { Section, Container } from "@/components/craft";
 
 // Icon imports
 import { Coins, ArrowRight } from "lucide-react";
+import { JSX } from "react";
 
 type FeatureText = {
   icon: JSX.Element;
