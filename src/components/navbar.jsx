@@ -53,7 +53,7 @@ export function NavBar() {
                                     <Button variant="outline" className="w-full">Projects</Button>
                                 </Link>
                             </DialogClose>
-                            {/* <ModeToggle /> */}
+                            <ModeToggle /> 
                         </div>
                     </SheetContent>
                 </Dialog>
