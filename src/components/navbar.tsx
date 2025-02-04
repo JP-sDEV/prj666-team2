@@ -33,28 +33,28 @@ const NavBar: React.FC = () => {
                 </Link>
               </DialogClose>
               <DialogClose asChild>
-                <Link href="/software">
+                <Link href="/aboutUs">
                   <Button variant="outline" className="w-full">
                     About Us
                   </Button>
                 </Link>
               </DialogClose>
               <DialogClose asChild>
-                <Link href="/automation">
+                <Link href="/faq">
                   <Button variant="outline" className="w-full">
                     FAQ
                   </Button>
                 </Link>
               </DialogClose>
               <DialogClose asChild>
-                <Link href="/blog">
+                <Link href="/account">
                   <Button variant="outline" className="w-full">
                     Create an Account
                   </Button>
                 </Link>
               </DialogClose>
               <DialogClose asChild>
-                <Link href="/projects">
+                <Link href="/login">
                   <Button variant="outline" className="w-full">
                     Login
                   </Button>
@@ -75,10 +75,10 @@ const NavBar: React.FC = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center gap-3 max-[825px]:hidden">
-          <Link href="/home">
+          <Link href="/">
             <Button variant="ghost">Home</Button>
           </Link>
-          <Link href="/aboutus">
+          <Link href="/aboutUs">
             <Button variant="ghost">About Us</Button>
           </Link>
           <Link href="/faq">

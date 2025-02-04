@@ -1,21 +1,21 @@
 // React and Next.js imports
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 // Third-party library imports
-import Balancer from "react-wrap-balancer";
+import Balancer from 'react-wrap-balancer';
 
 // UI component imports
-import { Button } from "./ui/button";
+import { Button } from './ui/button';
 
 // Icon imports
-import { Github, Twitter, Facebook } from "lucide-react";
+import { Github, Facebook, X } from 'lucide-react';
 
 // Local component imports
-import { Section, Container } from "./craft";
+import { Section, Container } from './craft';
 
 // Asset imports
-import Logo from "../../public/placeholder-logo-unsplash.jpg";
+import Logo from '../../public/placeholder-logo-unsplash.jpg';
 
 export default function Footer() {
   return (
@@ -35,8 +35,8 @@ export default function Footer() {
             </Link>
             <p>
               <Balancer>
-                brijr/components is a collection of Next.js, React, Typescript
-                components for building landing pages and websites.
+                brijr/components is a collection of Next.js, React, Typescript components for
+                building landing pages and websites.
               </Balancer>
             </p>
           </div>
@@ -52,16 +52,15 @@ export default function Footer() {
               <Github />
             </Button>
             <Button variant="outline" size="icon">
-              <Twitter />
+              <X />
             </Button>
             <Button variant="outline" size="icon">
               <Facebook />
             </Button>
           </div>
           <p className="text-muted-foreground">
-            ©{" "}
-            <a href="https://github.com/brijr/components">brijr/components</a>.
-            All rights reserved. 2024-present.
+            © <a href="https://github.com/brijr/components">brijr/components</a>. All rights
+            reserved. 2024-present.
           </p>
         </Container>
       </Section>
