@@ -9,7 +9,7 @@ describe('API Integration Tests', () => {
   let server;
 
   beforeAll((done) => {
-    const handler = async (req, res) => {
+    const handler = async (res) => {
       try {
         const response = await GET();
         const data = await response.json();
@@ -18,6 +18,7 @@ describe('API Integration Tests', () => {
         res.statusCode = response.status;
         res.end(JSON.stringify(data));
       } catch (error) {
+        console.error('Error occurred:', error);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 500;
         res.end(JSON.stringify({ error: 'Internal Server Error' }));
