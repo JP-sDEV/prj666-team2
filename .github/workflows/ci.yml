@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # or the version your project uses
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run integration tests
+        run: npm run test:integration # Ensure you have a script for integration tests
+
+      - name: Generate report
+        run: |
+          mkdir -p reports
+          npm run test:integration -- --reporter=json > reports/integration-report.json
+
+      - name: Upload report
+        uses: actions/upload-artifact@v2
+        with:
+          name: integration-report
+          path: reports/integration-report.json
