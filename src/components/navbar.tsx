@@ -1,13 +1,14 @@
 'use client';
-import { cn } from '../../public/placeholder-logo-unsplash.jpg';
-import { BookOpen, MenuIcon } from 'lucide-react';
+//import { cn } from '../../public/placeholder-logo-unsplash.jpg';
+import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 import { Dialog, DialogClose } from './ui/dialog';
 import { Button } from './ui/button';
-import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from './ui/navigation-menu';
+import { NavigationMenu, NavigationMenuList } from './ui/navigation-menu';
 import { ModeToggle } from './ui/mode-toggle';
 import { SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import Image from 'next/image';
 
 const NavBar: React.FC = () => {
   return (
@@ -69,7 +70,13 @@ const NavBar: React.FC = () => {
           <NavigationMenuList className="max-[825px]:hidden ">
             <Link href="/" className="pl-2">
               <h1 className="font-bold">
-                <img src="/placeholder-logo-unsplash.jpg" alt="Logo" className="h-8" />
+                <Image
+                  src="/placeholder-logo-unsplash.jpg"
+                  width="40"
+                  height="40"
+                  alt="Logo"
+                  className="h-8"
+                />
               </h1>
             </Link>
           </NavigationMenuList>

@@ -2,7 +2,7 @@ import { Geist, Geist_Mono, Rajdhani } from 'next/font/google';
 import './globals.css';
 import NavBar from '../components/navbar';
 import { ThemeProvider } from '../components/theme-provider';
-
+import React from 'react';
 //Font Family
 const geistSans = Geist({
   variable: '--font-geist-sans',

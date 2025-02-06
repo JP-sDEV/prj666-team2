@@ -8,7 +8,7 @@ import Balancer from 'react-wrap-balancer';
 import { Section, Container } from '@/components/craft';
 
 // Icon imports
-import { Coins, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { JSX } from 'react';
 
 type FeatureText = {
