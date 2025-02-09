@@ -19,8 +19,8 @@ export async function POST(request) {
 
   try {
     const response = await axios.post(
-      //fix here later
-      'http://localhost:3000/api/register',
+      //fix here later!
+      'http://example.com/api/register/devices',
       {
         device_id,
         user_id,
