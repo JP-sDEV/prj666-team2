@@ -3,7 +3,7 @@
 ## Sprint Planning
 
 ## Backlogs Number
-Each sprint has the following number of backlogs: 22, 47, 23, and 13.
+Each sprint has the following number of backlogs: 22, 47, 23, and 13, out of total 105.
 ![chart (1)](https://github.com/user-attachments/assets/7735c8e1-d2f8-4840-b518-2e7bbbd660dd)
 
 
