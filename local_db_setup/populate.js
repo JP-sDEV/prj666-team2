@@ -8,10 +8,7 @@ const DATABASE_URL = 'mongodb://localhost:27017/datasense-db';
 
 async function connectDB() {
   try {
-    await mongoose.connect(DATABASE_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(DATABASE_URL, {});
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
@@ -21,17 +18,29 @@ async function connectDB() {
 
 async function seedDatabase() {
   try {
-    // Create User
-    const user = new User({
-      username: 'johndoe',
-      email: 'johndoe@example.com',
-      passwordHash: 'hashedpassword123',
-    });
-    await user.save();
+    await User.deleteMany({});
 
-    // Create RaspberryPi associated with the user
+    // Create User (Email Authentication Example)
+    const emailUser = new User({
+      name: 'johndoe',
+      email: 'johndoe@example.com',
+      passwordHash: 'hashedpassword123', // For email auth, we use a password
+      authProvider: 'email', // Specifying the auth provider as 'email'
+    });
+    await emailUser.save();
+
+    // Create User (Google Authentication Example)
+    const googleUser = new User({
+      name: 'googleuser',
+      email: 'googleuser@example.com',
+      googleId: 'google-unique-id-123456', // This should come from Google OAuth
+      authProvider: 'google', // Specifying the auth provider as 'google'
+    });
+    await googleUser.save();
+
+    // Create RaspberryPi associated with the emailUser
     const raspberryPi = new RaspberryPi({
-      userId: user._id,
+      userId: emailUser._id,
       name: 'RaspberryPi 1',
       serialId: '1234567890',
     });
@@ -47,9 +56,9 @@ async function seedDatabase() {
     });
     await sensorData.save();
 
-    // Create Notification associated with the user and RaspberryPi
+    // Create Notification associated with the emailUser and RaspberryPi
     const notification = new Notification({
-      userId: user._id,
+      userId: emailUser._id,
       raspberryPiId: raspberryPi._id,
       message: 'Raspberry Pi has new data.',
       type: 'info',
