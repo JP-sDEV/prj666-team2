@@ -1,7 +1,10 @@
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 // MongoDB connection URI
-const uri = 'mongodb://localhost:27017';
+const uri =
+  (process.env.MONGO_URI && process.env.NODE_ENV == 'PROD') || 'mongodb://localhost:27017/';
+
 const dbName = 'datasense_db';
 
 // Initialize the database schema

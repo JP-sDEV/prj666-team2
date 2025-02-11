@@ -1,14 +1,17 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const User = require('../src/app/models/user');
 const RaspberryPi = require('../src/app/models/raspberryPi');
 const SensorData = require('../src/app/models/sensorData');
 const Notification = require('../src/app/models/notification');
 
-const DATABASE_URL = 'mongodb://localhost:27017/datasense-db';
+const DATABASE_URL =
+  (process.env.MONGO_URI && process.env.NODE_ENV == 'PROD') ||
+  'mongodb://localhost:27017/datasense-db';
 
 async function connectDB() {
   try {
-    await mongoose.connect(DATABASE_URL, {});
+    await mongoose.connect(DATABASE_URL, { dbName: 'datasense-db' });
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
