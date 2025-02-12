@@ -1,7 +1,7 @@
-import { jest, describe, it, expect, beforeAll, afterAll } from '@jest/globals';
-import request from 'supertest';
-import { createServer } from 'http';
-import { GET } from '../../app/api/test/route';
+const { jest, describe, it, expect, beforeAll, afterAll } = require('@jest/globals');
+const request = require('supertest');
+const { createServer } = require('http');
+const { GET } = require('../../src/app/api/test/route');
 
 jest.setTimeout(10000); // Increase timeout to 10 seconds
 
