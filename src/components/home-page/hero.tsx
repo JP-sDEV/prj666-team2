@@ -1,6 +1,7 @@
 // React and Next.js imports
 import Image from 'next/image';
 import Link from 'next/link';
+import { Session } from 'next-auth';
 
 // Third-party library imports
 import Balancer from 'react-wrap-balancer';
@@ -14,15 +15,25 @@ import { Button } from '../ui/button';
 import Placeholder from '../../../public/main-unsplash.jpg';
 import React from 'react';
 
-const Hero = () => {
+interface HeroProps {
+  session: Session | null;
+}
+
+const Hero = ({ session }: HeroProps) => {
   return (
     <Section>
       <Container>
         <div>
-          <Button asChild className="mb-6 w-fit" size={'sm'} variant={'outline'}>
-            <Link className="not-prose" href="https://9d8.dev">
-              Try it free <ArrowRight className="w-4" />
-            </Link>
+          <Button asChild className="mb-6 w-fit border rounded-md px-4 py-2 hover:bg-gray-100">
+            {session ? (
+              <Link className="not-prose" href="/dashboard">
+                Go to Dashboard <ArrowRight className="w-4" />
+              </Link>
+            ) : (
+              <Link className="not-prose" href="/login">
+                Try it free <ArrowRight className="w-4" />
+              </Link>
+            )}
           </Button>
 
           <div className="text-[65px] font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg font-rajdhani">
@@ -31,9 +42,15 @@ const Hero = () => {
 
           <h3 className="text-muted-foreground">
             <Balancer>
-              Unlock the power of real-time sensor data with DataSense. Streamline your operations,
-              optimize resources, and gain actionable insights with our intuitive dashboard and
-              advanced analytics
+              {session ? (
+                <>Welcome back, {session.user?.name || session.user?.email}!</>
+              ) : (
+                <>
+                  Unlock the power of real-time sensor data with DataSense. Streamline your
+                  operations, optimize resources, and gain actionable insights with our intuitive
+                  dashboard and advanced analytics
+                </>
+              )}
             </Balancer>
           </h3>
           <div className="not-prose my-8 h-96 w-full overflow-hidden rounded-lg border md:h-[480px] md:rounded-xl">
