@@ -21,9 +21,7 @@ export function ModeToggle() {
     <div>
       {theme === 'dark' ? (
         <Button
-          variant="ghost"
-          className="hover:bg-inherit border-zinc-900 bg-[#0c0c0d]"
-          size="icon"
+          className="p-2 hover:bg-inherit border-zinc-900 bg-[#0c0c0d]"
           onClick={() => setTheme('light')}
         >
           <Sun className="w-5 h-5" />
@@ -31,9 +29,7 @@ export function ModeToggle() {
         </Button>
       ) : (
         <Button
-          variant="ghost"
-          size="icon"
-          className="hover:bg-inherit border-zinc-100 bg-inherit"
+          className="p-2 hover:bg-inherit border-zinc-100 bg-inherit"
           onClick={() => setTheme('dark')}
         >
           <Moon className="w-5 h-5" />
