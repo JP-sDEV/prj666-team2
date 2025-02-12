@@ -91,10 +91,9 @@ jobs:
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci --include=optional
-
-      - name: Install sharp for linux-x64
-        run: npm install --platform=linux --arch=x64 sharp
+        run: |
+          npm ci
+          npm rebuild sharp
 
       - name: Build frontend
         run: npm run build
