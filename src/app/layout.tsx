@@ -1,16 +1,16 @@
-import { Geist, Geist_Mono, Rajdhani } from 'next/font/google';
+import { Inter, JetBrains_Mono, Rajdhani } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
 import { metadata } from './metadata';
 
 //Font Family
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
 });
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const jetBrainsMono = JetBrains_Mono({
+  variable: '--font-mono',
   subsets: ['latin'],
 });
 const rajdhani = Rajdhani({
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rajdhani.variable} antialiased`}
+        className={`${inter.variable} ${jetBrainsMono.variable} ${rajdhani.variable} antialiased`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import clientPromise from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/auth.config';
 
 // Schema for query parameters validation
 const QuerySchema = z.object({
@@ -22,6 +22,9 @@ const METRIC_UNITS: Record<string, string> = {
   pressure: 'hPa',
   moisture: '%',
 };
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -78,7 +81,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 
     // Build query for metrics
-    const query: any = {
+    const query = {
       deviceId: params.id,
       type: { $in: queryResult.data.metric },
       timestamp: {
