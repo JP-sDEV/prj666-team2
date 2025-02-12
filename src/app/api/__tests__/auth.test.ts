@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { createMocks } from 'node-mocks-http';
-import { handler as authHandler } from '../../api/auth/[...nextauth]/route';
+import { GET as authHandler } from '../../api/auth/[...nextauth]/route';
 
 jest.mock('next-auth/providers/google', () => {
   return jest.fn(() => ({

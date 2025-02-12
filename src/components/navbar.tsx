@@ -3,20 +3,30 @@
 import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
-import { Dialog, DialogClose } from './ui/dialog';
-import { Button } from './ui/button';
-import { NavigationMenu, NavigationMenuList } from './ui/navigation-menu';
-import { ModeToggle } from './ui/mode-toggle';
-import { SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Dialog } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
+import { ModeToggle } from '@/components/ui/mode-toggle';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import Image from 'next/image';
+import LoginButton from './auth/LoginButton';
 
 const NavBar: React.FC = () => {
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
       <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
-        <Dialog>
-          <SheetTrigger className="min-[825px]:hidden p-2 transition">
-            <MenuIcon />
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="min-[825px]:hidden">
+              <MenuIcon className="h-5 w-5" />
+            </Button>
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
@@ -26,48 +36,29 @@ const NavBar: React.FC = () => {
               </SheetDescription>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mt-[1rem] z-[99]">
-              <DialogClose asChild>
-                <Link href="/">
-                  <Button variant="outline" className="w-full">
-                    Home
-                  </Button>
-                </Link>
-              </DialogClose>
-              <DialogClose asChild>
-                <Link href="/aboutUs">
-                  <Button variant="outline" className="w-full">
-                    About Us
-                  </Button>
-                </Link>
-              </DialogClose>
-              <DialogClose asChild>
-                <Link href="/faq">
-                  <Button variant="outline" className="w-full">
-                    FAQ
-                  </Button>
-                </Link>
-              </DialogClose>
-              <DialogClose asChild>
-                <Link href="/account">
-                  <Button variant="outline" className="w-full">
-                    Create an Account
-                  </Button>
-                </Link>
-              </DialogClose>
-              <DialogClose asChild>
-                <Link href="/login">
-                  <Button variant="outline" className="w-full">
-                    Login
-                  </Button>
-                </Link>
-              </DialogClose>
+              <Link href="/">
+                <Button variant="outline" className="w-full">
+                  Home
+                </Button>
+              </Link>
+              <Link href="/aboutUs">
+                <Button variant="outline" className="w-full">
+                  About Us
+                </Button>
+              </Link>
+              <Link href="/faq">
+                <Button variant="outline" className="w-full">
+                  FAQ
+                </Button>
+              </Link>
+              <LoginButton />
               <ModeToggle />
             </div>
           </SheetContent>
-        </Dialog>
+        </Sheet>
 
         <NavigationMenu>
-          <NavigationMenuList className="max-[825px]:hidden ">
+          <NavigationMenuList className="max-[825px]:hidden">
             <Link href="/" className="pl-2">
               <h1 className="font-bold">
                 <Image
@@ -91,14 +82,9 @@ const NavBar: React.FC = () => {
           <Link href="/faq">
             <Button variant="ghost">FAQ</Button>
           </Link>
-          <Link href="/account">
-            <Button variant="ghost" className="ml-60">
-              Create an Account
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="ghost">Login</Button>
-          </Link>
+          <div className="ml-60">
+            <LoginButton />
+          </div>
           <ModeToggle />
         </div>
       </div>
