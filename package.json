@@ -42,6 +42,7 @@
     "react-dom": "^19.0.0",
     "react-wrap-balancer": "^1.1.1",
     "shadcn-ui": "^0.9.4",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"
   },
