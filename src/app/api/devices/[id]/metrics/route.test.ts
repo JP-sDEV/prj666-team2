@@ -32,9 +32,16 @@ jest.mock('@/lib/mongodb', () => ({
 describe('GET /api/devices/[id]/metrics', () => {
   const mockUserId = 'user123';
   const mockDeviceId = new ObjectId().toString();
+  const mockDate = new Date('2024-02-01T08:00:00Z');
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
+    jest.setSystemTime(mockDate);
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('should return 401 when user is not authenticated', async () => {
@@ -47,7 +54,10 @@ describe('GET /api/devices/[id]/metrics', () => {
     const data = await response.json();
 
     expect(response.status).toBe(401);
-    expect(data.error).toBe('Authentication required');
+    expect(data).toEqual({
+      status: 'error',
+      error: 'Authentication required',
+    });
   });
 
   it('should return 400 for invalid device ID', async () => {
@@ -62,22 +72,10 @@ describe('GET /api/devices/[id]/metrics', () => {
     const data = await response.json();
 
     expect(response.status).toBe(400);
-    expect(data.error).toBe('Invalid device ID');
-  });
-
-  it('should return 400 for invalid query parameters', async () => {
-    (getServerSession as jest.Mock).mockResolvedValueOnce({
-      user: { id: mockUserId },
+    expect(data).toEqual({
+      status: 'error',
+      error: 'Invalid device ID',
     });
-
-    const request = new NextRequest(
-      new URL(`http://localhost:3000/api/devices/${mockDeviceId}/metrics?type=invalid`)
-    );
-    const response = await GET(request, { params: { id: mockDeviceId } });
-    const data = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(data.error).toBe('Invalid query parameters');
   });
 
   it('should return 404 when device is not found', async () => {
@@ -96,33 +94,95 @@ describe('GET /api/devices/[id]/metrics', () => {
     const data = await response.json();
 
     expect(response.status).toBe(404);
-    expect(data.error).toBe('Device not found or unauthorized');
+    expect(data).toEqual({
+      status: 'error',
+      error: 'Device not found or unauthorized',
+    });
   });
 
-  it('should return metrics for valid request', async () => {
+  it('should use default values when no parameters are provided', async () => {
     (getServerSession as jest.Mock).mockResolvedValueOnce({
       user: { id: mockUserId },
     });
-
-    const mockMetrics = [
-      { deviceId: mockDeviceId, type: 'temperature', value: 25, timestamp: new Date() },
-    ];
 
     const mockDb = await clientPromise;
     const mockFindOne = mockDb.db().collection('devices').findOne as jest.Mock;
     mockFindOne.mockResolvedValueOnce({ _id: mockDeviceId, userId: mockUserId });
 
-    const mockToArray = mockDb.db().collection('metrics').find().sort({ timestamp: -1 }).limit(1000)
+    const mockMetrics = [
+      { deviceId: mockDeviceId, type: 'temperature', value: 22.5, timestamp: mockDate },
+    ];
+
+    const mockToArray = mockDb.db().collection('metrics').find().sort({ timestamp: 1 }).limit(1000)
       .toArray as jest.Mock;
     mockToArray.mockResolvedValueOnce(mockMetrics);
 
     const request = new NextRequest(
-      new URL(`http://localhost:3000/api/devices/${mockDeviceId}/metrics?type=temperature`)
+      new URL(`http://localhost:3000/api/devices/${mockDeviceId}/metrics`)
     );
     const response = await GET(request, { params: { id: mockDeviceId } });
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(data.metrics).toEqual(mockMetrics);
+    expect(data).toEqual({
+      status: 'success',
+      data: {
+        temperature: [
+          {
+            timestamp: mockDate.toISOString(),
+            value: 22.5,
+            unit: 'C',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should return multiple metrics when requested', async () => {
+    (getServerSession as jest.Mock).mockResolvedValueOnce({
+      user: { id: mockUserId },
+    });
+
+    const mockDb = await clientPromise;
+    const mockFindOne = mockDb.db().collection('devices').findOne as jest.Mock;
+    mockFindOne.mockResolvedValueOnce({ _id: mockDeviceId, userId: mockUserId });
+
+    const mockMetrics = [
+      { deviceId: mockDeviceId, type: 'temperature', value: 22.5, timestamp: mockDate },
+      { deviceId: mockDeviceId, type: 'humidity', value: 45, timestamp: mockDate },
+    ];
+
+    const mockToArray = mockDb.db().collection('metrics').find().sort({ timestamp: 1 }).limit(1000)
+      .toArray as jest.Mock;
+    mockToArray.mockResolvedValueOnce(mockMetrics);
+
+    const request = new NextRequest(
+      new URL(
+        `http://localhost:3000/api/devices/${mockDeviceId}/metrics?metric=temperature,humidity`
+      )
+    );
+    const response = await GET(request, { params: { id: mockDeviceId } });
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data).toEqual({
+      status: 'success',
+      data: {
+        temperature: [
+          {
+            timestamp: mockDate.toISOString(),
+            value: 22.5,
+            unit: 'C',
+          },
+        ],
+        humidity: [
+          {
+            timestamp: mockDate.toISOString(),
+            value: 45,
+            unit: '%RH',
+          },
+        ],
+      },
+    });
   });
 });

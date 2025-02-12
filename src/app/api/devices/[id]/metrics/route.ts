@@ -7,22 +7,36 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 // Schema for query parameters validation
 const QuerySchema = z.object({
-  type: z.enum(['temperature', 'humidity', 'pressure', 'battery']).optional(),
-  startDate: z.string().datetime().optional(),
-  endDate: z.string().datetime().optional(),
+  metric: z
+    .string()
+    .default('temperature')
+    .transform((str) => str.split(',')),
+  start: z.string().datetime().optional(),
+  end: z.string().datetime().optional(),
 });
+
+// Metric units mapping
+const METRIC_UNITS: Record<string, string> = {
+  temperature: 'C',
+  humidity: '%RH',
+  pressure: 'hPa',
+  moisture: '%',
+};
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session?.user) {
-      return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+      return NextResponse.json(
+        { status: 'error', error: 'Authentication required' },
+        { status: 401 }
+      );
     }
 
     // Validate device ID
     if (!ObjectId.isValid(params.id)) {
-      return NextResponse.json({ error: 'Invalid device ID' }, { status: 400 });
+      return NextResponse.json({ status: 'error', error: 'Invalid device ID' }, { status: 400 });
     }
 
     // Parse and validate query parameters
@@ -31,10 +45,20 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     if (!queryResult.success) {
       return NextResponse.json(
-        { error: 'Invalid query parameters', details: queryResult.error.errors },
+        {
+          status: 'error',
+          error: 'Invalid query parameters',
+          details: queryResult.error.errors,
+        },
         { status: 400 }
       );
     }
+
+    // Set default date range if not provided (last 24 hours)
+    const end = queryResult.data.end ? new Date(queryResult.data.end) : new Date();
+    const start = queryResult.data.start
+      ? new Date(queryResult.data.start)
+      : new Date(end.getTime() - 24 * 60 * 60 * 1000);
 
     // Connect to MongoDB
     const client = await clientPromise;
@@ -47,39 +71,48 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     });
 
     if (!device) {
-      return NextResponse.json({ error: 'Device not found or unauthorized' }, { status: 404 });
+      return NextResponse.json(
+        { status: 'error', error: 'Device not found or unauthorized' },
+        { status: 404 }
+      );
     }
 
     // Build query for metrics
     const query: any = {
       deviceId: params.id,
+      type: { $in: queryResult.data.metric },
+      timestamp: {
+        $gte: start,
+        $lte: end,
+      },
     };
-
-    if (queryResult.data.type) {
-      query.type = queryResult.data.type;
-    }
-
-    if (queryResult.data.startDate || queryResult.data.endDate) {
-      query.timestamp = {};
-      if (queryResult.data.startDate) {
-        query.timestamp.$gte = new Date(queryResult.data.startDate);
-      }
-      if (queryResult.data.endDate) {
-        query.timestamp.$lte = new Date(queryResult.data.endDate);
-      }
-    }
 
     // Retrieve metrics
     const metrics = await db
       .collection('metrics')
       .find(query)
-      .sort({ timestamp: -1 })
+      .sort({ timestamp: 1 })
       .limit(1000)
       .toArray();
 
-    return NextResponse.json({ metrics });
+    // Transform metrics into required format
+    const data: Record<string, any> = {};
+    queryResult.data.metric.forEach((metricType) => {
+      data[metricType] = metrics
+        .filter((m) => m.type === metricType)
+        .map((m) => ({
+          timestamp: m.timestamp.toISOString(),
+          value: m.value,
+          unit: METRIC_UNITS[metricType] || '',
+        }));
+    });
+
+    return NextResponse.json({
+      status: 'success',
+      data,
+    });
   } catch (error) {
     console.error('Error fetching metrics:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ status: 'error', error: 'Internal server error' }, { status: 500 });
   }
 }
