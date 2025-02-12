@@ -94,7 +94,7 @@ jobs:
         run: npm ci --include=optional
 
       - name: Install sharp for linux-x64
-        run: npm install --include=optional sharp
+        run: npm install --platform=linux --arch=x64 sharp
 
       - name: Build frontend
         run: npm run build
