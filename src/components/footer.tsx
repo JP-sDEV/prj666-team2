@@ -31,6 +31,7 @@ export default function Footer() {
                 width={120}
                 height={27.27}
                 className="transition-all hover:opacity-75 dark:invert"
+                priority
               ></Image>
             </Link>
             <p>
