@@ -47,7 +47,7 @@ const NavBar: React.FC = () => {
                 </Link>
               </DialogClose>
               <DialogClose asChild>
-                <Link href="/account">
+                <Link href="/signup">
                   <Button variant="outline" className="w-full">
                     Create an Account
                   </Button>
@@ -84,7 +84,7 @@ const NavBar: React.FC = () => {
           <Link href="/faq">
             <Button variant="ghost">FAQ</Button>
           </Link>
-          <Link href="/account">
+          <Link href="/signup">
             <Button variant="ghost" className="ml-60">
               Create an Account
             </Button>
