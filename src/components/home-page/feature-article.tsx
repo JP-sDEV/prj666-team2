@@ -8,11 +8,11 @@ import Balancer from 'react-wrap-balancer';
 import { Section, Container } from '@/components/craft';
 
 // Icon imports
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Newspaper } from 'lucide-react';
 import { JSX } from 'react';
 
 type FeatureText = {
-  icon: JSX.Element;
+  icon?: JSX.Element;
   title: string;
   description: string;
   href?: string;
@@ -21,14 +21,14 @@ type FeatureText = {
 
 const featureText: FeatureText[] = [
   {
-    icon: undefined,
+    icon: <Newspaper className="h-8 w-8 text-primary" />,
     title: 'Mobile Internet of Things (IoT) Multi-sensor Data Fusion',
     href: 'https://onlinelibrary.wiley.com/doi/toc/10.1155/9071.si.751421',
     description: 'Multi sensor data fusion technology is to use multiple sensors to collect... ',
     cta: 'Learn More',
   },
   {
-    icon: undefined,
+    icon: <Newspaper className="h-8 w-8 text-primary" />,
     title: 'Better, Faster, Stronger Soil Data Can Feed the Planet ',
     href: 'https://news.uoguelph.ca/2024/12/better-faster-stronger-soil-data-can-feed-the-planet/',
     description:
@@ -36,17 +36,17 @@ const featureText: FeatureText[] = [
     cta: 'Learn More',
   },
   {
-    icon: undefined,
+    icon: <Newspaper className="h-8 w-8 text-primary" />,
     title: 'Veris Technologies Unveils CoreScan Automated Soil Sensor Probe',
     href: 'https://www.precisionfarmingdealer.com/articles/6057-veris-technologies-unveils-corescan-automated-soil-sensor-probe',
     description: 'Veris Technologies, a pioneer in soil sensing technology...',
     cta: 'Learn More',
   },
   {
-    icon: undefined,
+    icon: <Newspaper className="h-8 w-8 text-primary" />,
     title: 'MoistTech highlights NIR tech for reliable moisture data on wood pellets',
     href: 'https://www.canadianbiomassmagazine.ca/moisttech-highlights-nir-tech-for-reliable-moisture-data-on-wood-pellets/',
-    description: 'Sarasota, Fla.-based manufacturer MoistTech Corp.’s...',
+    description: "Sarasota, Fla.-based manufacturer MoistTech Corp.'s...",
     cta: 'Learn More',
   },
 ];
