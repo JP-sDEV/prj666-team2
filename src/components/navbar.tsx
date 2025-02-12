@@ -3,7 +3,6 @@
 import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
-import { Dialog } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { ModeToggle } from '@/components/ui/mode-toggle';
@@ -24,7 +23,7 @@ const NavBar: React.FC = () => {
       <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="min-[825px]:hidden">
+            <Button className="min-[825px]:hidden p-2 hover:bg-gray-100">
               <MenuIcon className="h-5 w-5" />
             </Button>
           </SheetTrigger>
@@ -37,19 +36,13 @@ const NavBar: React.FC = () => {
             </SheetHeader>
             <div className="flex flex-col space-y-3 mt-[1rem] z-[99]">
               <Link href="/">
-                <Button variant="outline" className="w-full">
-                  Home
-                </Button>
+                <Button className="w-full border hover:bg-gray-100">Home</Button>
               </Link>
               <Link href="/aboutUs">
-                <Button variant="outline" className="w-full">
-                  About Us
-                </Button>
+                <Button className="w-full border hover:bg-gray-100">About Us</Button>
               </Link>
               <Link href="/faq">
-                <Button variant="outline" className="w-full">
-                  FAQ
-                </Button>
+                <Button className="w-full border hover:bg-gray-100">FAQ</Button>
               </Link>
               <LoginButton />
               <ModeToggle />
@@ -74,13 +67,13 @@ const NavBar: React.FC = () => {
         </NavigationMenu>
         <div className="flex items-center gap-3 max-[825px]:hidden">
           <Link href="/">
-            <Button variant="ghost">Home</Button>
+            <Button className="hover:bg-gray-100">Home</Button>
           </Link>
           <Link href="/aboutUs">
-            <Button variant="ghost">About Us</Button>
+            <Button className="hover:bg-gray-100">About Us</Button>
           </Link>
           <Link href="/faq">
-            <Button variant="ghost">FAQ</Button>
+            <Button className="hover:bg-gray-100">FAQ</Button>
           </Link>
           <div className="ml-60">
             <LoginButton />
