@@ -49,13 +49,13 @@ export default function Footer() {
         </Container>
         <Container className="not-prose flex flex-col justify-between gap-6 border-t md:flex-row md:items-center md:gap-2">
           <div className="flex gap-2">
-            <Button variant="outline" size="icon">
+            <Button className="border hover:bg-gray-100 p-2">
               <Github />
             </Button>
-            <Button variant="outline" size="icon">
+            <Button className="border hover:bg-gray-100 p-2">
               <X />
             </Button>
-            <Button variant="outline" size="icon">
+            <Button className="border hover:bg-gray-100 p-2">
               <Facebook />
             </Button>
           </div>
