@@ -18,25 +18,32 @@ export async function POST(request) {
   }
 
   try {
-    const response = await axios.post(
-      //fix here later!
-      'http://example.com/api/register/devices',
-      {
-        device_id,
-        user_id,
-        device_name: device_name || device_id,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-
+    // return Dummy object for testing
     return NextResponse.json(
       { status: 'success', message: 'Device registered successfully' },
       { status: 201 }
     );
+
+    //fix here later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // const response = await axios.post(
+    //
+    //   'http://example.com/api/register/devices',
+    //   {
+    //     device_id,
+    //     user_id,
+    //     device_name: device_name || device_id,
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: token,
+    //     },
+    //   }
+    // );
+
+    // return NextResponse.json(
+    //   { status: 'success', message: 'Device registered successfully' },
+    //   { status: 201 }
+    // );
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
