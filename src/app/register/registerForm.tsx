@@ -76,7 +76,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-white shadow-md rounded-lg">
+    <div className="!mt-20 p-4 max-w-md mx-auto bg-white shadow-md rounded-lg">
       <h2 className="text-xl font-semibold mb-4">Register Your Raspberry Pi</h2>
 
       <form onSubmit={handleSubmit}>
