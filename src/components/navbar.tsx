@@ -6,14 +6,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { ModeToggle } from '@/components/ui/mode-toggle';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import LoginButton from './auth/LoginButton';
@@ -67,7 +60,7 @@ const NavBar: React.FC = () => {
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-9 max-[825px]:hidden">
+        <div className="flex items-center gap-9 max-[825px]:hidden top-10">
           <Link href="/">
             <Button className="hover:bg-gray-100">Home</Button>
           </Link>
