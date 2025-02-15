@@ -65,7 +65,7 @@ const NavBar: React.FC = () => {
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-3 max-[825px]:hidden">
+        <div className="flex items-center gap-9 max-[825px]:hidden">
           <Link href="/">
             <Button className="hover:bg-gray-100">Home</Button>
           </Link>
