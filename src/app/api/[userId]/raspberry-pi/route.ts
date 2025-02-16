@@ -1,23 +1,17 @@
 import { NextResponse } from 'next/server';
 import connectDb from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
-import mongoose from 'mongoose';
 
 export async function POST(req: Request, context: { params: { userId: string } }) {
-  //console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-
   const params = await context.params;
   const userId = params.userId;
-  //console.log('User ID from params:', params.userId); //116749422716841568405 (Google Auth)
 
   try {
-    // convert userId to ObjectId (rule in MongoDB)
-    const userObjectId = new mongoose.Types.ObjectId(userId);
-
     const data = await req.json();
-    const { raspberryPiId, deviceName, deviceModel, location } = data;
+    const { raspberryPiId, serialId, name, deviceModel, location } = data;
+    console.log(JSON.stringify(data, null, 2)); //expected data
 
-    if (!raspberryPiId || !userObjectId) {
+    if (!raspberryPiId || !userId) {
       return NextResponse.json(
         { message: 'Raspberry Pi ID and user ID are required' },
         { status: 400 }
@@ -26,20 +20,16 @@ export async function POST(req: Request, context: { params: { userId: string } }
 
     await connectDb();
 
-    const existingDevice = await RaspberryPi.findOne({ raspberryPiId, userId: userObjectId });
-    if (existingDevice) {
-      return NextResponse.json(
-        { message: 'This Raspberry Pi is already registered under your account.' },
-        { status: 400 }
-      );
-    }
+    console.log('raspberryPiId:', raspberryPiId);
+    console.log('userId:', userId);
 
     const newDevice = new RaspberryPi({
       raspberryPiId,
-      deviceName: deviceName || 'My Device',
+      serialId,
+      name: name || 'My Device',
       deviceModel: deviceModel || 'Raspberry Pi 1',
       location: location || 'My Location',
-      userId: userObjectId,
+      userId,
     });
 
     await newDevice.save();

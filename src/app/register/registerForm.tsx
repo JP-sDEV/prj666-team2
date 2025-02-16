@@ -14,6 +14,7 @@ const RegisterForm = () => {
 
   const [formData, setFormData] = useState({
     raspberryPiId: '',
+    serialId: '',
     deviceName: '',
     deviceModel: '',
     location: '',
@@ -37,7 +38,7 @@ const RegisterForm = () => {
   };
 
   // if (status == 'authenticated') {
-  //   console.log('aaaaaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssaaaaaa' + session.user.id); //116749422716841568405
+  //   console.log( session.user.id); //116749422716841568405
   // }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,7 +65,13 @@ const RegisterForm = () => {
 
       if (response.ok) {
         setSuccessMessage('Raspberry Pi registered successfully!');
-        setFormData({ raspberryPiId: '', deviceName: '', deviceModel: '', location: '' });
+        setFormData({
+          raspberryPiId: '',
+          serialId: '',
+          deviceName: '',
+          deviceModel: '',
+          location: '',
+        });
       } else {
         setError('Error registering Raspberry Pi !!'); //error found in here -----------------------------------------------------------------------------------------------
       }
