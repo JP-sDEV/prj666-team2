@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDb from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
 
-export async function POST(req: Request, context: { params: { userId: string } }) {
-  const params = await context.params;
+export async function POST(req: Request, { params }: { params: { userId: string } }) {
+  //const params = await context.params;
   const userId = params.userId;
 
   try {
