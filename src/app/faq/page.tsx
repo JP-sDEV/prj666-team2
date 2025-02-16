@@ -1,16 +1,7 @@
 // React and Next.js imports
 import React from 'react';
-
-// Third-party library imports
+import * as Accordion from '@radix-ui/react-accordion';
 import { ArrowUpRight } from 'lucide-react';
-
-// UI component imports
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 
 // Custom components
 import { Section, Container } from '@/components/craft';
@@ -56,15 +47,15 @@ const FAQ = () => {
         </h2>
         <div className="not-prose mt-20 flex flex-col gap-5 md:mt-8">
           {content.map((item, index) => (
-            <Accordion key={index} type="single" collapsible>
-              <AccordionItem
+            <Accordion.Root key={index} type="single" collapsible>
+              <Accordion.Item
                 value={item.question}
                 className="rounded-md border bg-muted/20 px-4 transition-all hover:bg-muted/50"
               >
-                <AccordionTrigger className="text-left hover:no-underline">
+                <Accordion.Trigger className="text-left hover:no-underline">
                   {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base md:w-3/4">
+                </Accordion.Trigger>
+                <Accordion.Content className="text-base md:w-3/4">
                   {item.answer}
                   {item.link && (
                     <a
@@ -74,9 +65,9 @@ const FAQ = () => {
                       Learn more <ArrowUpRight className="ml-1" size="16" />
                     </a>
                   )}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
           ))}
         </div>
       </Container>
