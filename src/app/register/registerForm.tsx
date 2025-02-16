@@ -1,14 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react'; // 로그인 상태 체크를 위한 NextAuth 훅
-import { useRouter } from 'next/navigation'; // 페이지 리다이렉트 기능
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
-  const { data: session, status } = useSession(); // 로그인 상태 및 세션 데이터 가져오기
-  const [isClient, setIsClient] = useState(false); // 클라이언트에서만 실행되도록 하기 위한 상태
-  const router = useRouter(); // 페이지 리다이렉트 기능
+  const { data: session, status } = useSession(); // bring login status and data session
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
-  // 클라이언트에서만 useRouter를 사용하도록 설정
+  // use useRouter for client
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -23,10 +23,9 @@ const RegisterForm = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  // 로그인 상태에 따라 페이지 리다이렉트
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/login'); // 로그인 페이지로 리다이렉트
+      router.push('/'); // redirect to login page
     }
   }, [status, router]);
 
@@ -64,15 +63,15 @@ const RegisterForm = () => {
         setSuccessMessage('Raspberry Pi registered successfully!');
         setFormData({ raspberryPiId: '', deviceName: '', deviceModel: '', location: '' });
       } else {
-        setError('Error registering Raspberry Pi');
+        setError('Error registering Raspberry Pi !'); //error found in here
       }
     } catch (error) {
-      setError('Error registering Raspberry Pi');
+      setError(error + 'Error registering Raspberry Pi');
     }
   };
 
   if (status === 'loading' || !isClient) {
-    return <p>Loading...</p>; // 로그인 상태 확인 중일 때 로딩 화면
+    return <p>Loading...</p>;
   }
 
   return (

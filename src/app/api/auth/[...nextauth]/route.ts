@@ -28,7 +28,7 @@ const handler = NextAuth({
       }
       return token;
     },
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl + '/register';
     },
   },

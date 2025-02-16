@@ -1,11 +1,15 @@
-import { NextResponse } from 'next/server';
-import connectDb from '../../../lib/mongodb'; // MongoDB connection utility
-import RaspberryPi from '../../models/raspberryPi'; // Raspberry Pi model
+// src/app/api/[userid]/raspberry-pi/route.tsx
 
-export async function POST(req: Request) {
+import { NextResponse } from 'next/server';
+import connectDb from '../../../../lib/mongodb'; // MongoDB connection utility
+import RaspberryPi from '../../../models/raspberryPi'; // Raspberry Pi model
+
+export async function POST(req: Request, { params }: { params: { userId: string } }) {
   try {
     const data = await req.json();
-    const { raspberryPiId, deviceName, deviceModel, location, userId } = data;
+    const { raspberryPiId, deviceName, deviceModel, location } = data;
+
+    const userId = params.userId; // Get the userId from the URL params
 
     // Validate required fields
     if (!raspberryPiId || !userId) {
