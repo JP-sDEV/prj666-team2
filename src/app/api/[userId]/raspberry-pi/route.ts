@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDb from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
 import type { NextRequest } from 'next/server';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 
 export async function POST(
   request: NextRequest,
@@ -23,9 +23,6 @@ export async function POST(
     // }
 
     await connectDb();
-    console.log('Connected to MongoDB');
-
-    //console.log(process.env.MONGODB_URI); works
 
     const newDevice = new RaspberryPi({
       raspberryPiId: Math.random().toString(36).substring(2, 10),
