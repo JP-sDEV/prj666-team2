@@ -8,7 +8,6 @@ const RegisterForm = () => {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  // use useRouter for client
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -37,6 +36,10 @@ const RegisterForm = () => {
     }));
   };
 
+  // if (status == 'authenticated') {
+  //   console.log('aaaaaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssaaaaaa' + session.user.id); //116749422716841568405
+  // }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -51,7 +54,7 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await fetch(`/api/${session.user.id}/raspberry-pi/route`, {
+      const response = await fetch(`/api/${session.user.id}/raspberry-pi`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +66,7 @@ const RegisterForm = () => {
         setSuccessMessage('Raspberry Pi registered successfully!');
         setFormData({ raspberryPiId: '', deviceName: '', deviceModel: '', location: '' });
       } else {
-        setError('Error registering Raspberry Pi !'); //error found in here
+        setError('Error registering Raspberry Pi !!'); //error found in here -----------------------------------------------------------------------------------------------
       }
     } catch (error) {
       setError(error + 'Error registering Raspberry Pi');

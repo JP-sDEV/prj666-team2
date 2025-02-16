@@ -1,60 +1,58 @@
-// src/app/api/[userid]/raspberry-pi/route.tsx
-
 import { NextResponse } from 'next/server';
-import connectDb from '../../../../lib/mongodb'; // MongoDB connection utility
-import RaspberryPi from '../../../models/raspberryPi'; // Raspberry Pi model
+import connectDb from '../../../../lib/mongodb';
+import RaspberryPi from '../../../models/raspberryPi';
+import mongoose from 'mongoose';
 
-export async function POST(req: Request, { params }: { params: { userId: string } }) {
+export async function POST(req: Request, context: { params: { userId: string } }) {
+  //console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
+
+  const params = await context.params;
+  const userId = params.userId;
+  //console.log('User ID from params:', params.userId); //116749422716841568405 (Google Auth)
+
   try {
+    // convert userId to ObjectId (rule in MongoDB)
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+
     const data = await req.json();
     const { raspberryPiId, deviceName, deviceModel, location } = data;
 
-    const userId = params.userId; // Get the userId from the URL params
-
-    // Validate required fields
-    if (!raspberryPiId || !userId) {
+    if (!raspberryPiId || !userObjectId) {
       return NextResponse.json(
         { message: 'Raspberry Pi ID and user ID are required' },
         { status: 400 }
       );
     }
 
-    // Connect to the database
     await connectDb();
 
-    // Check if the Raspberry Pi ID already exists in the database
-    const existingDevice = await RaspberryPi.findOne({ raspberryPiId });
+    const existingDevice = await RaspberryPi.findOne({ raspberryPiId, userId: userObjectId });
     if (existingDevice) {
-      return NextResponse.json({ message: 'Device ID already registered' }, { status: 400 });
+      return NextResponse.json(
+        { message: 'This Raspberry Pi is already registered under your account.' },
+        { status: 400 }
+      );
     }
 
-    // Create a new Raspberry Pi entry in the database
     const newDevice = new RaspberryPi({
       raspberryPiId,
-      deviceName: deviceName || 'My Device', // Default if no name provided
-      deviceModel: deviceModel || 'Raspberry Pi 1', // Default if no model provided
-      location: location || 'My Location', // Default if no location provided
-      userId,
+      deviceName: deviceName || 'My Device',
+      deviceModel: deviceModel || 'Raspberry Pi 1',
+      location: location || 'My Location',
+      userId: userObjectId,
     });
 
     await newDevice.save();
 
-    // Return success response
     return NextResponse.json(
       {
-        message: 'Raspberry Pi registered successfully.',
-        device: {
-          raspberryPiId,
-          deviceName: deviceName || 'My Device',
-          deviceModel: deviceModel || 'Raspberry Pi 1',
-          location: location || 'My Location',
-          userId,
-        },
+        message: 'Raspberry Pi successfully registered.',
+        device: newDevice,
       },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: 'Error registering Raspberry Pi' }, { status: 500 });
+    console.error('Error registering Raspberry Pi:', error);
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
