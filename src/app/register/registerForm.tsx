@@ -13,8 +13,6 @@ const RegisterForm = () => {
   }, []);
 
   const [formData, setFormData] = useState({
-    raspberryPiId: '',
-    serialId: '',
     deviceName: '',
     deviceModel: '',
     location: '',
@@ -37,15 +35,15 @@ const RegisterForm = () => {
     }));
   };
 
-  // if (status == 'authenticated') {
-  //   console.log( session.user.id); //116749422716841568405
-  // }
+  if (status == 'authenticated') {
+    console.log('000000000000000000000000' + session.user.id); //116749422716841568405
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.raspberryPiId || !formData.deviceName) {
-      setError('Raspberry Pi ID and Device Name are required.');
+    if (!formData.deviceName) {
+      setError('Device Name are required.');
       return;
     }
 
@@ -66,8 +64,6 @@ const RegisterForm = () => {
       if (response.ok) {
         setSuccessMessage('Raspberry Pi registered successfully!');
         setFormData({
-          raspberryPiId: '',
-          serialId: '',
           deviceName: '',
           deviceModel: '',
           location: '',
@@ -92,7 +88,7 @@ const RegisterForm = () => {
         {error && <p className="text-red-500 mb-2">{error}</p>}
         {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>}
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="raspberryPiId" className="block text-sm font-medium text-gray-700">
             Raspberry Pi ID
           </label>
@@ -105,7 +101,7 @@ const RegisterForm = () => {
             required
             className="mt-1 block w-full border-gray-300 rounded-md"
           />
-        </div>
+        </div> */}
 
         <div className="mb-4">
           <label htmlFor="deviceName" className="block text-sm font-medium text-gray-700">
