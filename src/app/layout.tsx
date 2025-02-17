@@ -3,6 +3,7 @@ import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
 import { metadata } from './metadata';
+import { ToasterProvider } from '@/components/providers/toaster-provider';
 
 //Font Family
 const geistSans = Geist({
@@ -27,7 +28,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${rajdhani.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <ToasterProvider />
+        </Providers>
       </body>
     </html>
   );

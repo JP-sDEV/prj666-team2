@@ -16,8 +16,11 @@ import {
 } from '@/components/ui/sheet';
 import Image from 'next/image';
 import LoginButton from './auth/LoginButton';
+import { useSession, signOut } from 'next-auth/react';
 
 const NavBar: React.FC = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
       <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
@@ -80,14 +83,41 @@ const NavBar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-900">
-              Login
-            </Link>
-            <Link href="/signup">
-              <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
-                Sign Up
-              </button>
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Dashboard
+                </Link>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">
+                    {session.user?.name}
+                  </span>
+                  <button
+                    onClick={() => signOut()}
+                    className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Login
+                </Link>
+                <Link href="/signup">
+                  <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            )}
             <ModeToggle />
           </div>
         </div>
