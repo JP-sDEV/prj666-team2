@@ -8,8 +8,8 @@ import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-m
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import LoginButton from './auth/LoginButton';
+import { useSession, signOut } from 'next-auth/react';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
@@ -58,20 +58,60 @@ const NavBar: React.FC = () => {
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-9 max-[825px]:hidden top-10">
-          <Link href="/">
-            <Button className="hover:bg-gray-100">Home</Button>
-          </Link>
-          <Link href="/aboutUs">
-            <Button className="hover:bg-gray-100">About Us</Button>
-          </Link>
-          <Link href="/faq">
-            <Button className="hover:bg-gray-100">FAQ</Button>
-          </Link>
-          <div className="ml-60">
-            <LoginButton />
+        <div className="flex items-center justify-between flex-1 max-[825px]:hidden ml-8">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/aboutUs"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
+              About Us
+            </Link>
+            <Link href="/faq" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              FAQ
+            </Link>
           </div>
-          <ModeToggle />
+
+          <div className="flex items-center gap-4">
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Dashboard
+                </Link>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">
+                    {session.user?.name}
+                  </span>
+                  <button
+                    onClick={() => signOut()}
+                    className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Login
+                </Link>
+                <Link href="/signup">
+                  <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            )}
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </div>
