@@ -6,18 +6,14 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { ModeToggle } from '@/components/ui/mode-toggle';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import LoginButton from './auth/LoginButton';
 
 const NavBar: React.FC = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
       <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
@@ -29,10 +25,9 @@ const NavBar: React.FC = () => {
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
-              <SheetTitle>fabrika!!.</SheetTitle>
-              <SheetDescription>
-                Scale and launch products with expert developers, on-demand, at a flat monthly fee
-              </SheetDescription>
+              <SheetTitle>
+                {session ? `Welcome, ${session.user.name}!` : 'Log in to unlock more features!'}
+              </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mt-[1rem] z-[99]">
               <Link href="/">
@@ -65,7 +60,7 @@ const NavBar: React.FC = () => {
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-3 max-[825px]:hidden">
+        <div className="flex items-center gap-9 max-[825px]:hidden top-10">
           <Link href="/">
             <Button className="hover:bg-gray-100">Home</Button>
           </Link>
