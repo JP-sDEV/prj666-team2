@@ -58,8 +58,13 @@ export default function SignUpPage() {
         body: JSON.stringify(formData),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
+        if (data.error === 'User already exists') {
+          toast.error('An account with this email already exists. Please sign in instead.');
+          return;
+        }
         throw new Error(data.error || 'Registration failed');
       }
 
@@ -69,7 +74,6 @@ export default function SignUpPage() {
       }, 2000);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'An error occurred');
-      setError(error instanceof Error ? error.message : 'An error occurred');
     } finally {
       setIsLoading(false);
     }
