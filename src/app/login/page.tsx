@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
-import React from 'react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -136,7 +135,7 @@ export default function LoginPage() {
             </div>
 
             <p className="text-center text-sm text-gray-500">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/signup" className="font-medium text-blue-600 hover:underline">
                 Sign up
               </Link>

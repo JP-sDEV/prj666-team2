@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
-import React from 'react';
 
 interface PasswordValidation {
   hasMinLength: boolean;
