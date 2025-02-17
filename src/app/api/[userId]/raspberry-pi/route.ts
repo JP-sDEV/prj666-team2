@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
 import type { NextRequest } from 'next/server';
-import mongoose from 'mongoose';
 import User from '../../../models/user';
 
 export async function POST(
@@ -11,12 +10,11 @@ export async function POST(
 ) {
   try {
     await connectToDatabase();
+
     const data = await request.json();
     //const param = await params;
     //const userId = param.userId;
     const user = await User.findById('67afaeef0559c18f82cd6fd5'); //hardcoding for now
-
-    // const { deviceName } = data;
 
     const newDevice = new RaspberryPi({
       userId: user._id,
@@ -24,16 +22,11 @@ export async function POST(
       serialId: data.serialId,
     });
 
-    //console.log('newDevice:', newDevice.toObject());
-    // {
-    //   raspberryPiId: 'dovzinxr',
-    //   deviceName: 'My device',
-    //   deviceModel: 'Raspberry Pi 4',
-    //   location: 'Living Room',
-    //   _id: new ObjectId('67b242d30a1d63484de5e2f2')
-    // }
-    // console.log('11111111111111111111111111111111:', newDevice.userId); // undefined
-    // console.log('11111111111111111111111111111111:', newDevice._id); //new ObjectId('67b24b416975ff889f314aef')
+    const existingDevice = await RaspberryPi.findOne({ serialId: data.serialId });
+
+    if (existingDevice) {
+      return NextResponse.json({ message: 'Serial ID must be unique.' }, { status: 409 });
+    }
 
     try {
       await newDevice.save();
