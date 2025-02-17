@@ -1,10 +1,11 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
-  const { data: session, status } = useSession(); // bring login status and data session
+  const { data: session, status } = useSession();
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -13,9 +14,9 @@ const RegisterForm = () => {
   }, []);
 
   const [formData, setFormData] = useState({
-    deviceName: '',
-    deviceModel: '',
-    location: '',
+    userId: '',
+    name: '',
+    serialId: '',
   });
 
   const [error, setError] = useState('');
@@ -36,13 +37,13 @@ const RegisterForm = () => {
   };
 
   if (status == 'authenticated') {
-    console.log('000000000000000000000000' + session.user.id); //116749422716841568405
+    console.log('000000000000000000000000' + session.user.id);
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.deviceName) {
+    if (!formData.name) {
       setError('Device Name are required.');
       return;
     }
@@ -64,9 +65,9 @@ const RegisterForm = () => {
       if (response.ok) {
         setSuccessMessage('Raspberry Pi registered successfully!');
         setFormData({
-          deviceName: '',
-          deviceModel: '',
-          location: '',
+          userId: '',
+          name: '',
+          serialId: '',
         });
       } else {
         setError('Error registering Raspberry Pi !!'); //error found in here -----------------------------------------------------------------------------------------------
@@ -88,30 +89,15 @@ const RegisterForm = () => {
         {error && <p className="text-red-500 mb-2">{error}</p>}
         {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>}
 
-        {/* <div className="mb-4">
-          <label htmlFor="raspberryPiId" className="block text-sm font-medium text-gray-700">
-            Raspberry Pi ID
-          </label>
-          <input
-            type="text"
-            id="raspberryPiId"
-            name="raspberryPiId"
-            value={formData.raspberryPiId}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full border-gray-300 rounded-md"
-          />
-        </div> */}
-
         <div className="mb-4">
-          <label htmlFor="deviceName" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Device Name
           </label>
           <input
             type="text"
-            id="deviceName"
-            name="deviceName"
-            value={formData.deviceName}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
             className="mt-1 block w-full border-gray-300 rounded-md"
@@ -119,28 +105,14 @@ const RegisterForm = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="deviceModel" className="block text-sm font-medium text-gray-700">
-            Device Model
+          <label htmlFor="serialId" className="block text-sm font-medium text-gray-700">
+            serial Id
           </label>
           <input
             type="text"
-            id="deviceModel"
-            name="deviceModel"
-            value={formData.deviceModel}
-            onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-            Location
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
+            id="serialId"
+            name="serialId"
+            value={formData.serialId}
             onChange={handleChange}
             className="mt-1 block w-full border-gray-300 rounded-md"
           />

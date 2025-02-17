@@ -1,38 +1,30 @@
 import { NextResponse } from 'next/server';
-import connectDb from '../../../../lib/mongodb';
+import connectToDatabase from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
 import type { NextRequest } from 'next/server';
-//import mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import User from '../../../models/user';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
+    await connectToDatabase();
     const data = await request.json();
-    const param = await params;
-    const userId = param.userId;
+    //const param = await params;
+    //const userId = param.userId;
+    const user = await User.findById('67afaeef0559c18f82cd6fd5'); //hardcoding for now
 
-    const { deviceName, deviceModel, location } = data;
-
-    // if (!raspberryPiId || !userId) {
-    //   return NextResponse.json(
-    //     { message: 'Raspberry Pi ID and user ID are required' },
-    //     { status: 400 }
-    //   );
-    // }
-
-    await connectDb();
+    // const { deviceName } = data;
 
     const newDevice = new RaspberryPi({
-      raspberryPiId: Math.random().toString(36).substring(2, 10),
-      deviceName: deviceName || 'My Device',
-      deviceModel: deviceModel || 'Raspberry Pi 1',
-      location: location || 'My Location',
-      userId,
+      userId: user._id,
+      name: data.name,
+      serialId: data.serialId,
     });
 
-    console.log('newDevice:', newDevice.toObject());
+    //console.log('newDevice:', newDevice.toObject());
     // {
     //   raspberryPiId: 'dovzinxr',
     //   deviceName: 'My device',
@@ -40,8 +32,8 @@ export async function POST(
     //   location: 'Living Room',
     //   _id: new ObjectId('67b242d30a1d63484de5e2f2')
     // }
-    console.log('11111111111111111111111111111111:', newDevice.userId); // undefined
-    console.log('11111111111111111111111111111111:', newDevice._id); //new ObjectId('67b24b416975ff889f314aef')
+    // console.log('11111111111111111111111111111111:', newDevice.userId); // undefined
+    // console.log('11111111111111111111111111111111:', newDevice._id); //new ObjectId('67b24b416975ff889f314aef')
 
     try {
       await newDevice.save();
@@ -51,7 +43,7 @@ export async function POST(
       return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
 
-    await newDevice.save(); //---------------------CAN NOT SAVE DATA--------------------------------------------------------------
+    await newDevice.save();
 
     return NextResponse.json(
       {
