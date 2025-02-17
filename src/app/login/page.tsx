@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
+import React from 'react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

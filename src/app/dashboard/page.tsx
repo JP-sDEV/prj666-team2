@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { Container, Main, Section } from '@/components/craft';
+import React from 'react';
 
 export default function DashboardPage() {
   const { data: session, status } = useSession({
@@ -29,7 +30,7 @@ export default function DashboardPage() {
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold mb-2">Welcome, {session?.user?.email}</h2>
               <p className="text-gray-600">
-                This is a protected route. You can only see this if you're logged in.
+                This is a protected route. You can only see this if you&apos;re logged in.
               </p>
               
               <div className="mt-4 p-4 bg-gray-50 rounded-md">

@@ -1,13 +1,13 @@
 'use client';
 
 import { Container, Main, Section } from '@/components/craft';
-import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 import LoginButton from '@/components/auth/LoginButton';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
+import React from 'react';
 
 interface PasswordValidation {
   hasMinLength: boolean;
@@ -23,7 +23,6 @@ export default function SignUpPage() {
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -139,7 +138,7 @@ export default function SignUpPage() {
               <div className="space-y-2">
                 <div className="relative">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="Password"
                     className={`w-full rounded-md border p-2 ${
@@ -157,25 +156,33 @@ export default function SignUpPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                   >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
                 {formData.password && (
                   <div className="text-sm space-y-1 mt-2">
-                    <p className={passwordValidation.hasMinLength ? 'text-green-600' : 'text-red-500'}>
+                    <p
+                      className={
+                        passwordValidation.hasMinLength ? 'text-green-600' : 'text-red-500'
+                      }
+                    >
                       ✓ At least 8 characters
                     </p>
-                    <p className={passwordValidation.hasUpperCase ? 'text-green-600' : 'text-red-500'}>
+                    <p
+                      className={
+                        passwordValidation.hasUpperCase ? 'text-green-600' : 'text-red-500'
+                      }
+                    >
                       ✓ At least one uppercase letter
                     </p>
                     <p className={passwordValidation.hasNumber ? 'text-green-600' : 'text-red-500'}>
                       ✓ At least one number
                     </p>
-                    <p className={passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-red-500'}>
+                    <p
+                      className={
+                        passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-red-500'
+                      }
+                    >
                       ✓ At least one special character
                     </p>
                   </div>
