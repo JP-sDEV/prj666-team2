@@ -51,34 +51,45 @@ const NavBar: React.FC = () => {
         </Sheet>
 
         <NavigationMenu>
-          <NavigationMenuList className="max-[825px]:hidden">
+          <NavigationMenuList>
             <Link href="/" className="pl-2">
-              <h1 className="font-bold">
-                <Image
-                  src="/placeholder-logo-unsplash.jpg"
-                  width="40"
-                  height="40"
-                  alt="Logo"
-                  className="h-8"
-                />
-              </h1>
+              <Image
+                src="/placeholder-logo-unsplash.jpg"
+                width="40"
+                height="40"
+                alt="Logo"
+                className="h-8"
+              />
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-3 max-[825px]:hidden">
-          <Link href="/">
-            <Button className="hover:bg-gray-100">Home</Button>
-          </Link>
-          <Link href="/aboutUs">
-            <Button className="hover:bg-gray-100">About Us</Button>
-          </Link>
-          <Link href="/faq">
-            <Button className="hover:bg-gray-100">FAQ</Button>
-          </Link>
-          <div className="ml-60">
-            <LoginButton />
+        <div className="flex items-center justify-between flex-1 max-[825px]:hidden ml-8">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/aboutUs"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
+              About Us
+            </Link>
+            <Link href="/faq" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              FAQ
+            </Link>
           </div>
-          <ModeToggle />
+
+          <div className="flex items-center gap-4">
+            <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-900">
+              Login
+            </Link>
+            <Link href="/signup">
+              <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
+                Sign Up
+              </button>
+            </Link>
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </div>
