@@ -1,32 +1,28 @@
-require('dotenv').config();
-import mongoose from 'mongoose';
+import { MongoClient } from 'mongodb';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable in .env.local');
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
-// Define the desired database name
-const DB_NAME = process.env.DB_NAME || 'datasense-db';
+const uri = process.env.MONGODB_URI;
+const options = {};
 
-let cached = global.mongoose || { conn: null, promise: null };
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
-async function connectToDatabase() {
-  if (cached.conn) return cached.conn;
+if (process.env.NODE_ENV === 'development') {
+  let globalWithMongo = global as typeof globalThis & {
+    _mongoClientPromise?: Promise<MongoClient>;
+  };
 
-  if (!cached.promise) {
-    // Add the dbName option to the mongoose connect method
-    cached.promise = mongoose
-      .connect(MONGODB_URI, {
-        dbName: DB_NAME, // Explicitly set the database name
-      })
-      .then((mongoose) => mongoose);
+  if (!globalWithMongo._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    globalWithMongo._mongoClientPromise = client.connect();
   }
-
-  console.log('Connected to MongoDB');
-  cached.conn = await cached.promise;
-  return cached.conn;
+  clientPromise = globalWithMongo._mongoClientPromise;
+} else {
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
 }
 
-export default connectToDatabase;
+export default clientPromise;

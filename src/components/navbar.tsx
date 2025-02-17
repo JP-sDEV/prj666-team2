@@ -46,17 +46,15 @@ const NavBar: React.FC = () => {
         </Sheet>
 
         <NavigationMenu>
-          <NavigationMenuList className="max-[825px]:hidden">
+          <NavigationMenuList>
             <Link href="/" className="pl-2">
-              <h1 className="font-bold">
-                <Image
-                  src="/placeholder-logo-unsplash.jpg"
-                  width="40"
-                  height="40"
-                  alt="Logo"
-                  className="h-8"
-                />
-              </h1>
+              <Image
+                src="/placeholder-logo-unsplash.jpg"
+                width="40"
+                height="40"
+                alt="Logo"
+                className="h-8"
+              />
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
