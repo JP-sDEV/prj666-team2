@@ -3,7 +3,7 @@
 import { Container, Main, Section } from '@/components/craft';
 import Link from 'next/link';
 import LoginButton from '@/components/auth/LoginButton';
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
@@ -35,7 +35,7 @@ export default function SignUpPage() {
     };
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -77,7 +77,7 @@ export default function SignUpPage() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,

@@ -4,7 +4,7 @@ import { Container, Main, Section } from '@/components/craft';
 import Link from 'next/link';
 import LoginButton from '@/components/auth/LoginButton';
 import { signIn, useSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
@@ -38,7 +38,7 @@ export default function LoginPage() {
     return null;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
