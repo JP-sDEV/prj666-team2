@@ -66,8 +66,8 @@ export default function LoginPage() {
       // Success
       toast.success('Login successful!');
       window.location.href = '/dashboard';
-    } catch (error) {
-      toast.error('An error occurred during login');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'An error occurred during login');
       setIsLoading(false);
     }
   };
