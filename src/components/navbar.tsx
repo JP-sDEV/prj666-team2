@@ -71,14 +71,16 @@ const NavBar: React.FC = () => {
           <div className="flex items-center gap-4">
             {session ? (
               <>
-                <Link
+                {/* <Link
                   href="/dashboard"
                   className="text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
                   Dashboard
-                </Link>
+                </Link> */}
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-600">{session.user?.name}</span>
+                  <span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-red-500 hover:text-gray-600 transition-all duration-200">
+                    {session.user?.name}
+                  </span>
                   <button
                     onClick={() => signOut()}
                     className="text-sm font-medium text-gray-700 hover:text-gray-900"
