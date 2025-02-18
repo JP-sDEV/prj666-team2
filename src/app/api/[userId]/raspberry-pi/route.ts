@@ -3,6 +3,7 @@ import connectToDatabase from '../../../../lib/mongodb';
 import RaspberryPi from '../../../models/raspberryPi';
 import type { NextRequest } from 'next/server';
 import User from '../../../models/user';
+import { MongoClient } from 'mongodb';
 
 export async function POST(
   request: NextRequest,

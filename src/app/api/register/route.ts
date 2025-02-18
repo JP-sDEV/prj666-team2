@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { hash } from 'bcrypt';
-import clientPromise from '@/lib/mongodb';
+import clientPromise from '@/lib/mongodb1';
 import { MongoClient } from 'mongodb';
 
 export async function POST(req: Request) {

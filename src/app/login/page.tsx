@@ -46,7 +46,7 @@ export default function LoginPage() {
       const result = await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/dashboard',
+        callbackUrl: '/register',
         redirect: false,
       });
 
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
       // Success
       toast.success('Login successful!');
-      window.location.href = '/dashboard';
+      window.location.href = '/register';
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'An error occurred during login');
       setIsLoading(false);

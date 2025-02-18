@@ -14,16 +14,16 @@ async function createIndexes(client: MongoClient) {
   try {
     const db = client.db('datasense-db');
     const users = db.collection('users');
-    
+
     // Drop existing indexes
     await users.dropIndexes();
-    
+
     // Create new unique index
     await users.createIndex(
       { email: 1 },
-      { 
+      {
         unique: true,
-        name: 'email_unique' // Named index for easier management
+        name: 'email_unique', // Named index for easier management
       }
     );
     console.log('Indexes recreated successfully');
