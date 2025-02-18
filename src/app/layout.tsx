@@ -3,6 +3,7 @@ import './globals.css';
 import NavBar from '../components/navbar';
 import { ThemeProvider } from '../components/theme-provider';
 import React from 'react';
+import connectToDatabase from '@/lib/mongodb';
 //Font Family
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,6 +25,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  connectToDatabase();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
