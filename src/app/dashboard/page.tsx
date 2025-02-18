@@ -45,7 +45,7 @@ export default function DashboardPage() {
       createTrialUser();
     } else {
       // Use session user if logged in
-      setUser(session.user);
+      //setUser(session.user);
     }
   }, [session]);
 
