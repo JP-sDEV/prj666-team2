@@ -48,13 +48,7 @@ const NavBar: React.FC = () => {
         <NavigationMenu>
           <NavigationMenuList>
             <Link href="/" className="pl-2">
-              <Image
-                src="/placeholder-logo-unsplash.jpg"
-                width="40"
-                height="40"
-                alt="Logo"
-                className="h-8"
-              />
+              <Image src="/logo-unsplash.png" width="40" height="40" alt="Logo" className="h-8" />
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
@@ -84,9 +78,7 @@ const NavBar: React.FC = () => {
                   Dashboard
                 </Link>
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-600">
-                    {session.user?.name}
-                  </span>
+                  <span className="text-sm text-gray-600">{session.user?.name}</span>
                   <button
                     onClick={() => signOut()}
                     className="text-sm font-medium text-gray-700 hover:text-gray-900"
