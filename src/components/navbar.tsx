@@ -71,14 +71,16 @@ const NavBar: React.FC = () => {
           <div className="flex items-center gap-4">
             {session ? (
               <>
-                <Link
+                {/* <Link
                   href="/dashboard"
                   className="text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
                   Dashboard
-                </Link>
+                </Link> */}
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-600">{session.user?.name}</span>
+                  <span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-red-500 hover:text-gray-600 transition-all duration-200">
+                    {session.user?.name}
+                  </span>
                   <button
                     onClick={() => signOut()}
                     className="text-sm font-medium text-gray-700 hover:text-gray-900"
@@ -111,29 +113,3 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-
-// const ListItem = React.forwardRef<
-//     React.ElementRef<"a">,
-//     React.ComponentPropsWithoutRef<"a">
-// >(({ className, title, children, ...props }, ref) => {
-//     return (
-//         <li>
-//             <NavigationMenuLink asChild>
-//                 <a
-//                     ref={ref}
-//                     className={cn(
-//                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-//                         className
-//                     )}
-//                     {...props}
-//                 >
-//                     <div className="text-sm font-medium leading-none">{title}</div>
-//                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-//                         {children}
-//                     </p>
-//                 </a>
-//             </NavigationMenuLink>
-//         </li>
-//     )
-// })
-// ListItem.displayName = "ListItem"
