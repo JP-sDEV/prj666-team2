@@ -84,8 +84,8 @@ const RegisterForm = () => {
     }
   };
 
-  const handleGoHome = () => {
-    router.push('/');
+  const handleGoDashboard = () => {
+    router.push('/dashboard');
   };
 
   if (status === 'loading' || !isClient) {
@@ -143,10 +143,10 @@ const RegisterForm = () => {
         {successMessage && (
           <button
             type="button"
-            onClick={handleGoHome}
+            onClick={handleGoDashboard}
             className="w-full py-2 bg-gradient-to-r from-purple-600 to-red-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 mt-4"
           >
-            Go to Home
+            Go to Dashboard
           </button>
         )}
       </form>
