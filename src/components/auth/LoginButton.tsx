@@ -13,12 +13,15 @@ export default function LoginButton({ className }: LoginButtonProps) {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = async () => {
+  const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn('google', { callbackUrl: '/' });
+      await signIn('google', {
+        callbackUrl: '/dashboard', // Update callback URL to go to dashboard
+        redirect: true,
+      });
     } catch (error) {
-      console.error('Sign in error:', error);
+      console.error('Google sign in error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -91,11 +94,12 @@ export default function LoginButton({ className }: LoginButtonProps) {
 
   return (
     <button
-      onClick={handleSignIn}
+      onClick={handleGoogleSignIn}
       className={`flex items-center justify-center rounded-md border p-3 ${className}`}
+      disabled={isLoading}
     >
       <FcGoogle className="mr-2 h-5 w-5" />
-      Sign in with Google
+      {isLoading ? 'Signing in...' : 'Sign in with Google'}
     </button>
   );
 }

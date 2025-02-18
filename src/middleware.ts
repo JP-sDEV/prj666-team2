@@ -4,8 +4,11 @@ export default withAuth({
   pages: {
     signIn: '/login',
   },
+  callbacks: {
+    authorized: ({ token }) => !!token,
+  },
 });
 
 export const config = {
-  matcher: ['/dashboard/:path*']
-}; 
+  matcher: ['/dashboard/:path*'],
+};
