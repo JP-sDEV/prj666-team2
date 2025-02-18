@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "init-local-db": "node local_db_setup/init-db.js",
-    "init-dummy-data-db": "node local_db_setup/populate.js",
+    "init-local-db": "NODE_ENV=local node local_db_setup/init-db.js",
+    "init-dummy-data-db": "NODE_ENV=local node local_db_setup/populate.js",
     "start": "next start",
     "lint": "next lint",
     "lint:api": "next lint --dir src/app/api",

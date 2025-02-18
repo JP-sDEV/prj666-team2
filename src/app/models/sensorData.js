@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SensorDataSchema = new mongoose.Schema({
-  raspberryPiId: {
+  raspberryPi: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'RaspberryPi',
     required: true,
