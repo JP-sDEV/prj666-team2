@@ -3,51 +3,15 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { Container, Main, Section } from '@/components/craft';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export default function DashboardPage() {
   const { data: session, status } = useSession({
-    // required: true,
-    // onUnauthenticated() {
-    //   redirect('/login');
-    // },
-    required: false,
+    required: true,
+    onUnauthenticated() {
+      redirect('/login');
+    },
   });
-
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // Check if there is no session, indicating the user is in trial mode
-    if (!session?.user) {
-      // Create a trial user in the database if no session exists
-      const createTrialUser = async () => {
-        const trialUserData = {
-          email: 'trialuser@example.com',
-          id: 'trial-user-id',
-          name: 'Trial User',
-        };
-
-        // Save the trial user in the database (mocked API call)
-        const response = await fetch('/api/create-trial-user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(trialUserData),
-        });
-
-        if (response.ok) {
-          const newUser = await response.json();
-          setUser(newUser); // Set the user state to the created trial user
-        }
-      };
-
-      createTrialUser();
-    } else {
-      // Use session user if logged in
-      //setUser(session.user);
-    }
-  }, [session]);
 
   if (status === 'loading') {
     return (
@@ -62,9 +26,8 @@ export default function DashboardPage() {
       <Section>
         <Container>
           <div className="py-8">
-            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-2">Welcome, {session?.user?.email}</h2>
+            <div className="!mt-15 bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-2">Welcome, {session?.user?.name}</h2>
               <p className="text-gray-600">
                 This is a protected route. You can only see this if you&apos;re logged in.
               </p>
