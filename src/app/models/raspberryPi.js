@@ -14,7 +14,7 @@ const RaspberryPiSchema = new mongoose.Schema(
     serialId: {
       type: String,
       required: true,
-      unique: true, // Ensures serialId is unique
+      unique: true,
     },
   },
   {
