@@ -16,7 +16,7 @@ export default function LoginButton({ className }: LoginButtonProps) {
   const handleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn('google', { callbackUrl: '/' });
+      await signIn('google', { callbackUrl: '/login' });
     } catch (error) {
       console.error('Sign in error:', error);
     } finally {
