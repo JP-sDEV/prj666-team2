@@ -1,5 +1,6 @@
 // React and Next.js imports
 import Link from 'next/link';
+import React from 'react';
 
 // Third-party library imports
 import Balancer from 'react-wrap-balancer';
@@ -9,10 +10,9 @@ import { Section, Container } from '@/components/craft';
 
 // Icon imports
 import { ArrowRight, Newspaper } from 'lucide-react';
-import { JSX } from 'react';
 
 type FeatureText = {
-  icon?: JSX.Element;
+  icon?: React.ReactElement;
   title: string;
   description: string;
   href?: string;
