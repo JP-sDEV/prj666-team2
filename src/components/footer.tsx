@@ -15,7 +15,7 @@ import { Github, Facebook, X } from 'lucide-react';
 import { Section, Container } from './craft';
 
 // Asset imports
-import Logo from '../../public/placeholder-logo-unsplash.jpg';
+import Logo from '../../public/logo-unsplash.png';
 
 export default function Footer() {
   return (

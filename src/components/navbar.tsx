@@ -6,18 +6,14 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { ModeToggle } from '@/components/ui/mode-toggle';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
 import LoginButton from './auth/LoginButton';
+import { useSession, signOut } from 'next-auth/react';
 
 const NavBar: React.FC = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
       <div className="flex justify-between md:w-[900px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-white border-white border-opacity-20 rounded-xl p-2 shadow-lg">
@@ -29,10 +25,9 @@ const NavBar: React.FC = () => {
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
-              <SheetTitle>fabrika!!.</SheetTitle>
-              <SheetDescription>
-                Scale and launch products with expert developers, on-demand, at a flat monthly fee
-              </SheetDescription>
+              <SheetTitle>
+                {session ? `Welcome, ${session.user.name}!` : 'Log in to unlock more features!'}
+              </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mt-[1rem] z-[99]">
               <Link href="/">
@@ -51,34 +46,64 @@ const NavBar: React.FC = () => {
         </Sheet>
 
         <NavigationMenu>
-          <NavigationMenuList className="max-[825px]:hidden">
+          <NavigationMenuList>
             <Link href="/" className="pl-2">
-              <h1 className="font-bold">
-                <Image
-                  src="/placeholder-logo-unsplash.jpg"
-                  width="40"
-                  height="40"
-                  alt="Logo"
-                  className="h-8"
-                />
-              </h1>
+              <Image src="/logo-unsplash.png" width="40" height="40" alt="Logo" className="h-8" />
             </Link>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-3 max-[825px]:hidden">
-          <Link href="/">
-            <Button className="hover:bg-gray-100">Home</Button>
-          </Link>
-          <Link href="/aboutUs">
-            <Button className="hover:bg-gray-100">About Us</Button>
-          </Link>
-          <Link href="/faq">
-            <Button className="hover:bg-gray-100">FAQ</Button>
-          </Link>
-          <div className="ml-60">
-            <LoginButton />
+        <div className="flex items-center justify-between flex-1 max-[825px]:hidden ml-8">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/aboutUs"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
+              About Us
+            </Link>
+            <Link href="/faq" className="text-sm font-medium hover:text-gray-600 transition-colors">
+              FAQ
+            </Link>
           </div>
-          <ModeToggle />
+
+          <div className="flex items-center gap-4">
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Dashboard
+                </Link>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">{session.user?.name}</span>
+                  <button
+                    onClick={() => signOut()}
+                    className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  Login
+                </Link>
+                <Link href="/signup">
+                  <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            )}
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </div>

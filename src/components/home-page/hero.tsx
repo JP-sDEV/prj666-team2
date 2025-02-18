@@ -30,7 +30,7 @@ const Hero = ({ session }: HeroProps) => {
                 Go to Dashboard <ArrowRight className="w-4" />
               </Link>
             ) : (
-              <Link className="not-prose" href="/login">
+              <Link className="not-prose" href="/dashboard">
                 Try it free <ArrowRight className="w-4" />
               </Link>
             )}
