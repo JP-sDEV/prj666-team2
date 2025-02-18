@@ -39,11 +39,9 @@ async function initDatabase() {
   } catch (err) {
     console.error('Error initializing database schema:', err);
   } finally {
-    // Close the connection
     await client.close();
     console.log('Disconnected from MongoDB');
   }
 }
 
-// Run the initialization script
 initDatabase();
