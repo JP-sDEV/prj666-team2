@@ -17,7 +17,7 @@ export default function LoginButton({ className }: LoginButtonProps) {
     setIsLoading(true);
     try {
       await signIn('google', {
-        callbackUrl: '/dashboard',
+        callbackUrl: '/register',
         redirect: true,
       });
     } catch (error) {
