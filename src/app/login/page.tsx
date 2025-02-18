@@ -20,7 +20,7 @@ export default function LoginPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (session) {
-      router.replace('/dashboard');
+      router.replace('/register');
     }
   }, [session, router]);
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
       const result = await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/dashboard',
+        callbackUrl: '/register',
         redirect: false,
       });
 
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
       // Success
       toast.success('Login successful!');
-      router.push('/dashboard');
+      router.push('/register');
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'An error occurred during login');
     } finally {
