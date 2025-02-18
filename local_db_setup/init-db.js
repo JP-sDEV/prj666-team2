@@ -2,10 +2,9 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 // MongoDB connection URI
-const uri =
-  (process.env.MONGO_URI && process.env.NODE_ENV == 'PROD') || 'mongodb://localhost:27017/';
+const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/';
 
-const dbName = 'datasense_db';
+const dbName = 'datasense-db';
 
 // Initialize the database schema
 async function initDatabase() {
@@ -20,17 +19,17 @@ async function initDatabase() {
 
     // Create collections
     await db.createCollection('users');
-    await db.createCollection('raspberryPis');
-    await db.createCollection('sensorData');
+    await db.createCollection('raspberrypis');
+    await db.createCollection('sensordatas');
     await db.createCollection('notifications');
 
     console.log('Collections created successfully');
 
     // Define indexes
     await db.collection('users').createIndex({ email: 1 }, { unique: true });
-    await db.collection('raspberryPis').createIndex({ userId: 1 });
-    await db.collection('sensorData').createIndex({ raspberryPiId: 1 });
-    await db.collection('sensorData').createIndex({ timestamp: 1 });
+    await db.collection('raspberrypis').createIndex({ userId: 1 });
+    await db.collection('sensordatas').createIndex({ raspberryPiId: 1 });
+    await db.collection('sensordatas').createIndex({ timestamp: 1 });
     await db.collection('notifications').createIndex({ userId: 1 });
     await db.collection('notifications').createIndex({ raspberryPiId: 1 });
 
