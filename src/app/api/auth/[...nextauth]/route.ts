@@ -1,9 +1,4 @@
 import NextAuth from 'next-auth';
-<<<<<<< HEAD
-import { authOptions } from '../auth.config';
-
-const handler = NextAuth(authOptions);
-=======
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { compare } from 'bcrypt';
@@ -76,6 +71,5 @@ const handler = NextAuth({
     },
   },
 });
->>>>>>> main
 
 export { handler as GET, handler as POST };
