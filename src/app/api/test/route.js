@@ -1,8 +1,14 @@
 'use server';
+import connectToDatabase from '@/lib/mongodb';
+import SensorData from '../../models/sensorData';
 
 export async function GET() {
   try {
-    return Response.json({ message: 'Hello World' }, { status: 200 });
+    await connectToDatabase();
+
+    const data = await SensorData.find();
+    console.log(data);
+    return Response.json({ data: data }, { status: 200 });
   } catch (error) {
     // Create a new Response object for the error case
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
