@@ -100,5 +100,10 @@ jobs:
           npm ci
           npm install sharp --platform=linux --arch=x64
 
+      - name: Setup Environment
+        run: |
+          cp .env.local .env
+          echo "Using mock environment variables for CI/CD"
+
       - name: Build frontend
         run: npm run build

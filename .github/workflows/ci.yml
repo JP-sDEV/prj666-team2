@@ -22,6 +22,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Setup Environment
+        run: |
+          cp .env.local .env
+          echo "Using mock environment variables for CI/CD"
+
       - name: Run Tests
         run: npm run test
 

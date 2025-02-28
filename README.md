@@ -1,24 +1,42 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## DataSense Web Application
+
+DataSense is a web application for monitoring and visualizing sensor data from Raspberry Pi devices. The application provides real-time data visualization of temperature and humidity readings.
+
+## Features
+
+- Real-time data visualization using WebSockets
+- Temperature and humidity monitoring
+- User authentication and protected routes
+- Responsive dashboard interface
+- Heartbeat mechanism for connection health monitoring
+
 ## Getting Started
 
-First, run the development server:
+First, run the development server with WebSocket support:
 
 ```bash
+# On Windows
+start-dev.bat
+
+# Or using npm
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Real-time Data Visualization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The dashboard includes real-time charts that update automatically as new sensor data is received. Currently, the application uses simulated data that changes every 3 seconds. In production, it will connect to actual Raspberry Pi sensors.
+
+### WebSocket Implementation
+
+- Backend: Socket.IO server integrated with Next.js
+- Frontend: React components with Recharts for visualization
+- Data: Simulated temperature and humidity readings (20-30°C, 30-70%)
+- Update frequency: Every 3 seconds
+- Connection monitoring: Heartbeat mechanism every 30 seconds
 
 ## Learn More
 

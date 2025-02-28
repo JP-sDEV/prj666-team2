@@ -24,7 +24,17 @@ const rajdhani = Rajdhani({
 export { metadata };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  connectToDatabase();
+  // Only try to connect to MongoDB in production or development, not during build
+  if (process.env.NODE_ENV !== 'test') {
+    try {
+      connectToDatabase().catch((err) => {
+        console.warn('MongoDB connection error:', err.message);
+      });
+    } catch (error) {
+      console.warn('Failed to connect to MongoDB:', error);
+    }
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body

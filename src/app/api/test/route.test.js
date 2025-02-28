@@ -1,4 +1,5 @@
 import { GET } from './route';
+import { jest } from '@jest/globals';
 
 describe('Test API Route', () => {
   describe('GET method', () => {
