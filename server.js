@@ -1,9 +1,8 @@
 // server.js
-const { createServer } = require('http');
-const { parse } = require('url');
-const next = require('next');
-// Use dynamic import for ES modules
-let socketModule;
+import { createServer } from 'http';
+import { parse } from 'url';
+import next from 'next';
+import { initSocketServer } from './src/lib/socket.js';
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
@@ -13,10 +12,7 @@ const port = process.env.PORT || 3000;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
-app.prepare().then(async () => {
-  // Dynamically import the socket module
-  socketModule = await import('./src/lib/socket.js');
-
+app.prepare().then(() => {
   // Create HTTP server
   const server = createServer(async (req, res) => {
     try {
@@ -30,7 +26,7 @@ app.prepare().then(async () => {
   });
 
   // Initialize Socket.IO server
-  socketModule.initSocketServer(server);
+  initSocketServer(server);
 
   // Start the server
   server.listen(port, (err) => {
