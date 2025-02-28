@@ -1,7 +1,7 @@
-const { expect } = require('chai');
-const request = require('supertest');
-const { createServer } = require('http');
-const { GET } = require('./test-route');
+import { expect } from 'chai';
+import request from 'supertest';
+import { createServer } from 'http';
+import { GET } from './test-route.js';
 
 describe('API Integration Tests', () => {
   let server;
