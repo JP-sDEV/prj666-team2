@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const SensorDataSchema = new mongoose.Schema({
   raspberryPi: {
@@ -21,4 +21,4 @@ const SensorDataSchema = new mongoose.Schema({
 // Check if the model is already defined to prevent overwriting
 const SensorData = mongoose.models.SensorData || mongoose.model('SensorData', SensorDataSchema);
 
-module.exports = SensorData;
+export { SensorData };

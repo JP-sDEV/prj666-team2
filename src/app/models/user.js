@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -18,4 +18,4 @@ const UserSchema = new mongoose.Schema({
 // Check if the model is already defined to prevent overwriting
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-module.exports = User;
+export { User };

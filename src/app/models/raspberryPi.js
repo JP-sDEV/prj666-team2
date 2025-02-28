@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const RaspberryPiSchema = new mongoose.Schema(
   {
@@ -25,4 +25,4 @@ const RaspberryPiSchema = new mongoose.Schema(
 // Export the model
 const RaspberryPi = mongoose.models.RaspberryPi || mongoose.model('RaspberryPi', RaspberryPiSchema);
 
-module.exports = RaspberryPi;
+export { RaspberryPi };
