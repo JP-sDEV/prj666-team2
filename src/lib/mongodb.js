@@ -3,16 +3,18 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable in .env.local');
-}
-
 // Define the desired database name
 const DB_NAME = process.env.DB_NAME || 'datasense-db';
 
 let cached = global.mongoose || { conn: null, promise: null };
 
 async function connectToDatabase() {
+  // Skip connection if MONGODB_URI is not defined (e.g., during build process)
+  if (!MONGODB_URI) {
+    console.warn('MONGODB_URI not defined. Skipping database connection.');
+    return null;
+  }
+
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {

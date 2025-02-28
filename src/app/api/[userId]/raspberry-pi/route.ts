@@ -10,6 +10,12 @@ export async function POST(
   { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
+    // Skip database operations if MONGODB_URI is not defined (e.g., during build)
+    if (!process.env.MONGODB_URI) {
+      console.warn('MONGODB_URI not defined. Skipping database operations.');
+      return NextResponse.json({ message: 'Database connection not available' }, { status: 503 });
+    }
+
     await connectToDatabase();
 
     const data = await request.json();
