@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "init-local-db": "NODE_ENV=local node local_db_setup/init-db.js",
     "init-dummy-data-db": "NODE_ENV=local node local_db_setup/populate.js",
@@ -16,7 +16,8 @@
     "coverage": "jest -c jest.config.js --runInBand --coverage",
     "test:backend": "jest --selectProjects api --coverage",
     "test:frontend": "jest --selectProjects client --coverage",
-    "test:integration": "mocha test/integration/**/*.spec.js"
+    "test:integration": "mocha test/integration/**/*.spec.js",
+    "test:socket": "node test-socket-api.js"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
@@ -41,13 +42,17 @@
     "next-auth": "^4.24.11",
     "next-images": "^1.8.5",
     "next-themes": "^0.4.4",
+    "node-fetch": "^2.7.0",
     "prisma": "^6.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-wrap-balancer": "^1.1.1",
+    "recharts": "^2.15.1",
     "shadcn-ui": "^0.9.4",
     "sharp": "^0.33.5",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "sonner": "^1.7.4",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"

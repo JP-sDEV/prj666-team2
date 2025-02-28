@@ -4,6 +4,13 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { Container, Main, Section } from '@/components/craft';
 import React from 'react';
+import dynamic from 'next/dynamic';
+
+// Import the DashboardCharts component with dynamic import to avoid SSR issues with WebSockets
+const DashboardCharts = dynamic(() => import('@/components/dashboard/DashboardCharts'), {
+  ssr: false,
+  loading: () => <p>Loading charts...</p>,
+});
 
 export default function DashboardPage() {
   const { data: session, status } = useSession({
@@ -42,6 +49,12 @@ export default function DashboardPage() {
                     <span className="font-medium">User ID:</span> {session?.user?.id}
                   </li>
                 </ul>
+              </div>
+
+              {/* Real-time sensor data charts */}
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold mb-4">Real-time Sensor Data</h3>
+                <DashboardCharts />
               </div>
             </div>
           </div>
