@@ -1,6 +1,6 @@
 'use client';
 //import { cn } from '../../public/placeholder-logo-unsplash.jpg';
-import { MenuIcon } from 'lucide-react';
+import { Download, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
@@ -10,9 +10,39 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import Image from 'next/image';
 import LoginButton from './auth/LoginButton';
 import { useSession, signOut } from 'next-auth/react';
+import { useState } from 'react';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const download = async (format: 'csv' | 'json') => {
+    if (!session) {
+      alert('Please log in to download data.');
+      return;
+    }
+
+    try {
+      // Make a request to the API endpoint to get the user data in the desired format (e.g., CSV)
+      const response = await fetch(`/api/export?format=${format}`, {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to download data');
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `user_data.${format}`; // filename
+      link.click();
+    } catch (error) {
+      console.error(error);
+      alert('Error while downloading data!!!!!!!!!!!');
+    }
+  };
 
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
@@ -71,12 +101,6 @@ const NavBar: React.FC = () => {
           <div className="flex items-center gap-4">
             {session ? (
               <>
-                {/* <Link
-                  href="/dashboard"
-                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                >
-                  Dashboard
-                </Link> */}
                 <div className="flex items-center gap-4">
                   <span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-red-500 hover:text-gray-600 transition-all duration-200">
                     {session.user?.name}
@@ -87,6 +111,32 @@ const NavBar: React.FC = () => {
                   >
                     Sign Out
                   </button>
+
+                  <div className="relative">
+                    <button
+                      onClick={() => setDropdownVisible(!isDropdownVisible)}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                    >
+                      Download
+                    </button>
+
+                    {isDropdownVisible && (
+                      <div className="absolute top-8 right-0 bg-white shadow-lg rounded-lg p-2 mt-2">
+                        <button
+                          onClick={() => download('csv')}
+                          className="w-full text-left p-1 hover:bg-gray-100 text-xs"
+                        >
+                          CSV
+                        </button>
+                        <button
+                          onClick={() => download('json')}
+                          className="w-full text-left p-1 hover:bg-gray-100 text-xs"
+                        >
+                          JSON
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </>
             ) : (
