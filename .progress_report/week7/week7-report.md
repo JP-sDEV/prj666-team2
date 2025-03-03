@@ -15,8 +15,12 @@ Some work related to sysem development is still progress (26%).
 Also 4 tasks are not complete, so it assigned to Sprint 3.
 ![chart (6)](https://github.com/user-attachments/assets/5b0c6e12-860a-4160-a04f-ebaa4e4414bb)
 
+## Dashboard
+This URL is a Dashboard containing UserStories(Tickets) for Sprint 2.
+https://github.com/users/JP-sDEV/projects/4/views/3?filterQuery=sprint%3A%22Sprint+2%22
 
 ## Progress Overview
 So far, we have completed 50.4% of the work. We expect that 62.8% of the work will be completed by Sprint 3.
 ![chart (7)](https://github.com/user-attachments/assets/cfbf06b7-a885-4877-86a4-1d5d3620313f)
+
 
