@@ -190,20 +190,74 @@ const NavBar: React.FC = () => {
             <div className="flex items-center gap-4">
               {session ? (
                 <>
-                  <Link
-                    href="/dashboard"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                  >
-                    Dashboard
-                  </Link>
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">{session.user?.name}</span>
+                    <span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-red-500 hover:text-gray-600 transition-all duration-200">
+                      {session.user?.name}
+                    </span>
                     <button
                       onClick={() => signOut()}
                       className="text-sm font-medium text-gray-700 hover:text-gray-900"
                     >
                       Sign Out
                     </button>
+
+                    <div className="relative">
+                      <button
+                        onClick={() => setDropdownVisible(!isDropdownVisible)}
+                        className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                      >
+                        Download
+                      </button>
+
+                      {isDropdownVisible && (
+                        <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-2 mt-2">
+                          <div className="flex flex-col lp-2">
+                            <div className="flex flex-col gap-1 text-sm">
+                              <label className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  name="temperature"
+                                  checked={selectedFields.temperature}
+                                  onChange={handleFieldChange}
+                                />
+                                Temperature
+                              </label>
+                              <label className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  name="humidity"
+                                  checked={selectedFields.humidity}
+                                  onChange={handleFieldChange}
+                                />
+                                Humidity
+                              </label>
+                              <label className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  name="moisture"
+                                  checked={selectedFields.moisture}
+                                  onChange={handleFieldChange}
+                                />
+                                Moisture
+                              </label>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => download('csv')}
+                            className="w-full text-left p-1 hover:bg-gray-100 text-xs mt-2"
+                          >
+                            CSV
+                          </button>
+                          <button
+                            onClick={() => download('json')}
+                            className="w-full text-left p-1 hover:bg-gray-100 text-xs"
+                          >
+                            JSON
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </>
               ) : (
@@ -225,8 +279,9 @@ const NavBar: React.FC = () => {
             </div>
           </div>
         </div>
-        <ToastContainer />
       </div>
+
+      <ToastContainer position="top-left" />
     </div>
   );
 };
