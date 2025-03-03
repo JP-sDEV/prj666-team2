@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
     }
 
     try {
-      // Make a request to the API endpoint to get the user data in the desired format (e.g., CSV)
+      // Make a request to the API endpoint to get the user data in the desired format (CSV or Json)
       const response = await fetch(`/api/export?format=${format}`, {
         method: 'GET',
       });
@@ -36,8 +36,10 @@ const NavBar: React.FC = () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `user_data.${format}`; // filename
+      link.download = `${session.user.name}_env_data.${format}`; // filename
       link.click();
+
+      setDropdownVisible(false); // unvisible the dropbox
     } catch (error) {
       console.error(error);
       alert('Error while downloading data!!!!!!!!!!!');
