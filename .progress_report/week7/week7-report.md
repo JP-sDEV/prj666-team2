@@ -12,6 +12,8 @@ The main focus sprint 2 is to setup the following infrastructure:
 This URL is a Dashboard containing UserStories(Tickets) for Sprint 2.
 https://github.com/users/JP-sDEV/projects/4/views/3?filterQuery=sprint%3A%22Sprint+2%22
 
+## Git Main 
+https://github.com/JP-sDEV/prj666-team2
 
 ## Backlogs Number
 Sprint 2 has 42 backlogs, out of total 105.
