@@ -187,43 +187,45 @@ const NavBar: React.FC = () => {
               </Link>
             </div>
 
-          <div className="flex items-center gap-4">
-            {session ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                >
-                  Dashboard
-                </Link>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-600">{session.user?.name}</span>
-                  <button
-                    onClick={() => signOut()}
+            <div className="flex items-center gap-4">
+              {session ? (
+                <>
+                  <Link
+                    href="/dashboard"
                     className="text-sm font-medium text-gray-700 hover:text-gray-900"
                   >
-                    Sign Out
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                >
-                  Login
-                </Link>
-                <Link href="/signup">
-                  <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
-                    Sign Up
-                  </button>
-                </Link>
-              </>
-            )}
-            <ModeToggle />
+                    Dashboard
+                  </Link>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-gray-600">{session.user?.name}</span>
+                    <button
+                      onClick={() => signOut()}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                  >
+                    Login
+                  </Link>
+                  <Link href="/signup">
+                    <button className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-full hover:opacity-90 transition-opacity">
+                      Sign Up
+                    </button>
+                  </Link>
+                </>
+              )}
+              <ModeToggle />
+            </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
