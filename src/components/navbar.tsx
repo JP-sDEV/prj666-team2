@@ -1,6 +1,6 @@
 'use client';
-//import { cn } from '../../public/placeholder-logo-unsplash.jpg';
-import { Download, MenuIcon } from 'lucide-react';
+
+import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,19 @@ import { useState } from 'react';
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [selectedFields, setSelectedFields] = useState({
+    timestamp: true,
+    temperature: false,
+    humidity: false,
+    moisture: false,
+  });
 
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFields((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.checked,
+    }));
+  };
   const download = async (format: 'csv' | 'json') => {
     if (!session) {
       alert('Please log in to download data.');
@@ -23,8 +35,11 @@ const NavBar: React.FC = () => {
     }
 
     try {
-      // Make a request to the API endpoint to get the user data in the desired format (CSV or Json)
-      const response = await fetch(`/api/export?format=${format}`, {
+      // timestamp is always included
+      const fieldsToInclude = Object.keys(selectedFields).filter((field) => selectedFields[field]);
+      const allFields = ['timestamp', ...fieldsToInclude];
+
+      const response = await fetch(`/api/export?format=${format}&fields=${allFields.join(',')}`, {
         method: 'GET',
       });
 
@@ -39,10 +54,17 @@ const NavBar: React.FC = () => {
       link.download = `${session.user.name}_env_data.${format}`; // filename
       link.click();
 
-      setDropdownVisible(false); // unvisible the dropbox
+      setDropdownVisible(false); // hide the dropdown
+      setSelectedFields({
+        //unset the checkbox
+        timestamp: true,
+        temperature: false,
+        humidity: false,
+        moisture: false,
+      });
     } catch (error) {
       console.error(error);
-      alert('Error while downloading data!!!!!!!!!!!');
+      alert('Error while downloading data!!');
     }
   };
 
@@ -123,10 +145,42 @@ const NavBar: React.FC = () => {
                     </button>
 
                     {isDropdownVisible && (
-                      <div className="absolute top-8 right-0 bg-white shadow-lg rounded-lg p-2 mt-2">
+                      <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-2 mt-2">
+                        <div className="flex flex-col lp-2">
+                          <div className="flex flex-col gap-1 text-sm">
+                            <label className="flex items-center gap-2">
+                              <input
+                                type="checkbox"
+                                name="temperature"
+                                checked={selectedFields.temperature}
+                                onChange={handleFieldChange}
+                              />
+                              Temperature
+                            </label>
+                            <label className="flex items-center gap-2">
+                              <input
+                                type="checkbox"
+                                name="humidity"
+                                checked={selectedFields.humidity}
+                                onChange={handleFieldChange}
+                              />
+                              Humidity
+                            </label>
+                            <label className="flex items-center gap-2">
+                              <input
+                                type="checkbox"
+                                name="moisture"
+                                checked={selectedFields.moisture}
+                                onChange={handleFieldChange}
+                              />
+                              Moisture
+                            </label>
+                          </div>
+                        </div>
+
                         <button
                           onClick={() => download('csv')}
-                          className="w-full text-left p-1 hover:bg-gray-100 text-xs"
+                          className="w-full text-left p-1 hover:bg-gray-100 text-xs mt-2"
                         >
                           CSV
                         </button>

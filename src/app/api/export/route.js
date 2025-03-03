@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import SensorData from '@/app/models/sensorData';
 
-// MongoDB 연결 함수
 async function connectDB() {
   const DATABASE_URL = process.env.MONGO_URI || 'mongodb://localhost:27017/datasense-db';
 
@@ -15,10 +14,10 @@ async function connectDB() {
   await mongoose.connect(DATABASE_URL, { dbName: 'datasense-db' });
   console.log('MongoDB connected');
 }
-
 export async function GET(request) {
-  const url = new URL(request.url); // parsing
+  const url = new URL(request.url);
   const format = url.searchParams.get('format'); // csv or json
+  const fieldsParam = url.searchParams.get('fields');
 
   if (format !== 'csv' && format !== 'json') {
     return NextResponse.json(
@@ -27,11 +26,14 @@ export async function GET(request) {
     );
   }
 
+  if (!fieldsParam) {
+    return NextResponse.json({ error: 'No fields selected.' }, { status: 400 });
+  }
+
+  const selectedFields = fieldsParam.split(','); // 'timestamp' and other selected fields
   await connectDB();
 
-  const environmentData = await SensorData.find({})
-    .select('timestamp temperature humidity moisture')
-    .exec();
+  const environmentData = await SensorData.find({}).select(selectedFields.join(' ')).exec();
 
   if (!environmentData.length) {
     return NextResponse.json({ error: 'No environment data found.' }, { status: 404 });
@@ -40,7 +42,7 @@ export async function GET(request) {
   const today = new Date().toISOString().split('T')[0];
 
   if (format === 'csv') {
-    const csv = convertToCSV(environmentData); // convert to CSV
+    const csv = convertToCSV(environmentData, selectedFields); // convert to CSV
     const headers = {
       'Content-Type': 'text/csv',
       'Content-Disposition': `attachment; filename=environment_data_${today}.csv`,
@@ -57,10 +59,8 @@ export async function GET(request) {
   }
 }
 
-function convertToCSV(data) {
-  const header = 'Timestamp,Temperature(°C),Humidity(%),Moisture(%)\n';
-  const rows = data
-    .map((item) => `${item.timestamp},${item.temperature},${item.humidity},${item.moisture}`)
-    .join('\n');
+function convertToCSV(data, selectedFields) {
+  const header = selectedFields.join(',') + '\n';
+  const rows = data.map((item) => selectedFields.map((field) => item[field]).join(',')).join('\n');
   return header + rows;
 }
