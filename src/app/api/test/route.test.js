@@ -1,5 +1,5 @@
-import { GET } from './route';
-import { jest } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import { GET } from './route.js';
 
 describe('Test API Route', () => {
   describe('GET method', () => {
