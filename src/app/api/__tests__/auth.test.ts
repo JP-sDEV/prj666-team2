@@ -26,9 +26,9 @@ process.env.GOOGLE_CLIENT_SECRET = 'mock_client_secret';
 
 // Mock NextAuth
 jest.mock('next-auth', () => {
-  const mockNextAuth = jest.fn((options) => {
+  const mockNextAuth = jest.fn((options: any) => {
     // Test the authorize function
-    const credentialsProvider = options.providers?.find((p) => p.type === 'credentials');
+    const credentialsProvider = options.providers?.find((p: any) => p.type === 'credentials');
     if (credentialsProvider && 'authorize' in credentialsProvider) {
       credentialsProvider.authorize(
         {
@@ -96,7 +96,7 @@ jest.mock('../../../lib/mongodb1', () => {
   const mockClient = {
     db: jest.fn().mockReturnValue({
       collection: jest.fn().mockReturnValue({
-        findOne: jest.fn().mockImplementation((query, options = {}) =>
+        findOne: jest.fn().mockImplementation((query: any, options: any = {}) =>
           Promise.resolve({
             _id: 'test-id',
             email: 'test@example.com',
@@ -136,7 +136,7 @@ describe('Auth API', () => {
     const client = await clientPromise;
     mockFindOne = jest
       .fn()
-      .mockImplementation((query, options = {}) =>
+      .mockImplementation((query: any, options: any = {}) =>
         client.db().collection().findOne(query, options)
       );
     const { compare } = await import('bcrypt');
