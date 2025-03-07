@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals';
+const { describe, it, expect } = require('@jest/globals');
 
 // Simple utility function to format dates
 function formatDate(date) {
