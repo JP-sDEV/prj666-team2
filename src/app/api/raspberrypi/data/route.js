@@ -1,5 +1,3 @@
-// app/api/raspberrypi/data/route.js
-
 import connectToDatabase from '@/lib/mongodb';
 import { SensorData } from '../../../models/sensorData';
 import { RaspberryPi } from '../../../models/raspberryPi';
