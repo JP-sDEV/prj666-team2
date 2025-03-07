@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
-import SensorData from '@/app/models/sensorData';
+import { SensorData } from '@/app/models/sensorData';
 
 async function connectDB() {
   const DATABASE_URL = process.env.MONGO_URI || 'mongodb://localhost:27017/datasense-db';

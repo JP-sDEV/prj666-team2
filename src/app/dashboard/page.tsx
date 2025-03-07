@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
 import { Container, Main, Section } from '@/components/craft';
 import Chart from '../../components/charts/line';

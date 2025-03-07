@@ -1,6 +1,6 @@
 'use server';
 import connectToDatabase from '@/lib/mongodb';
-import SensorData from '../../models/sensorData';
+import { SensorData } from '../../models/sensorData';
 
 export async function GET() {
   try {
