@@ -1,9 +1,17 @@
 import connectToDatabase from '@/lib/mongodb';
-import SensorData from '../../../models/sensorData';
-import RaspberryPi from '../../../models/raspberryPi';
+import { SensorData } from '../../../models/sensorData';
+import { RaspberryPi } from '../../../models/raspberryPi';
 
 export async function POST(req) {
   try {
+    // Skip database operations if MONGODB_URI is not defined (e.g., during build)
+    if (!process.env.MONGODB_URI) {
+      console.warn('MONGODB_URI not defined. Skipping database operations.');
+      return new Response(JSON.stringify({ message: 'Database connection not available' }), {
+        status: 503,
+      });
+    }
+
     await connectToDatabase();
     const buffer = await req.arrayBuffer();
     const binaryData = Buffer.from(buffer);

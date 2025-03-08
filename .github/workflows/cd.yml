@@ -5,7 +5,7 @@ on:
     branches:
       - main # Trigger only on PR targeting 'main'
   workflow_run:
-    workflows: ["CI Backend", "CI Frontend"]
+    workflows: ['CI Backend', 'CI Frontend']
     types:
       - completed # Trigger when the CI workflows are completed
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
     if: ${{ github.event.pull_request }}
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Fetch workflow status
         id: fetch_status
@@ -30,12 +30,12 @@ jobs:
     if: ${{ needs.check-ci-status.result == 'success' }} # Ensure it only runs if the CI passed
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: '20.x'
 
       - name: Install dependencies
         run: npm ci
