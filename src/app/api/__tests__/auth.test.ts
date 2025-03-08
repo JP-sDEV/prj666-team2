@@ -137,7 +137,7 @@ describe('Auth API', () => {
     mockFindOne = jest
       .fn()
       .mockImplementation((query: any, options: any = {}) =>
-        client.db().collection().findOne(query, options)
+        client.db().collection('users').findOne(query, options)
       );
     const { compare } = await import('bcrypt');
     mockCompare = compare;
