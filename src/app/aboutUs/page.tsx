@@ -12,7 +12,7 @@ const AboutUsPage: FC = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="flex justify-center items-center">
             <Image
-              src="/aboutUs-unsplash.jpg" // 이미지 경로
+              src="/aboutUs-unsplash.jpg"
               alt="image"
               width={500}
               height={500}
