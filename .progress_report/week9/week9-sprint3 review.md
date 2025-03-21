@@ -20,7 +20,6 @@ https://github.com/JP-sDEV/prj666-team2
 ## Backlogs Number
 Sprint 3 has 28 backlogs, out of total 105.
 We have completed 100% tasks including Testing and Team reviewing in Sprint 3.
-Some work related to sysem development is still progress. //////////////////////////////
 ![alt text](<chart (14).png>)
 
 ## Progress Overview
