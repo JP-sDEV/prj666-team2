@@ -21,4 +21,4 @@ We expect that 100% of the work will be completed by Sprint 4.
 
 
 ## Progress Summary
-We have 4 sprints, and we are focusing on Sprint 3 and Sprint 4.
+We have 4 sprints, and we are focusing on the last Sprint 4.
