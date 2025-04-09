@@ -3,7 +3,7 @@
 ## Sprint 4 Review
 
 ### Summary:
-The main focus sprint 4 is deploy the system: 
+The main focus sprint 4 is deploying the system: 
 - Set up production environment
 - Deploy backend & frontend to production
 - Test production & Setup testing environment
